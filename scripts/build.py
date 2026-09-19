@@ -258,28 +258,75 @@ FIREWALL_SOURCES = [
 ]
 
 
+FIREWALL_NAMED = dict(FIREWALL_SOURCES)
+
+# A project may declare its firewalls in one of these instead of per-lock files.
+FIREWALL_GENERIC_SOURCES = ("foundation/KNOWLEDGE_FIREWALLS.md",)
+
+# foundation/ files whose name marks them as a boundary document
+FIREWALL_NAME_TOKENS = ("LOCK", "FIREWALL", "GUARD", "POLICY")
+
+
+def _firewall_summary(text: str) -> str:
+    for line in text.splitlines():
+        t = line.strip().lstrip("#> -*").strip()
+        if len(t) > 40:
+            return t[:300]
+    return ""
+
+
+def _firewall_status(text: str) -> str:
+    """A firewall the project itself still marks unresolved is not LOCKED."""
+    low = text.lower()
+    for marker in ("boundaries tbd", "still tbd", ": tbd", "tbd after", "tbd."):
+        if marker in low:
+            return "PARTIAL / TBD (see source file)"
+    return "LOCKED (see source file)"
+
+
 def firewalls_from_foundation(proj_path: str) -> list[dict]:
-    """Knowledge firewalls, derived from the project's own foundation/ lock files."""
+    """Knowledge firewalls, derived from the project's own foundation/ lock files.
+
+    Discovery is generic. FIREWALL_SOURCES is only a display-label map for the SL4
+    lock files; a project that declares firewalls in foundation/KNOWLEDGE_FIREWALLS.md,
+    or in any foundation/*LOCK*.md / *FIREWALL*.md / *GUARD*.md / *POLICY*.md, is picked
+    up without this scanner hard-coding its filenames.
+    """
     out = []
-    for name, rel in FIREWALL_SOURCES:
+    seen = set()
+
+    def add(rel: str, name: str) -> None:
+        if rel in seen:
+            return
         p = os.path.join(proj_path, rel)
-        if not os.path.exists(p):
-            continue
+        if not os.path.isfile(p):
+            return
+        seen.add(rel)
         text = read(p)
-        summary = ""
-        for line in text.splitlines():
-            t = line.strip().lstrip("#> -*").strip()
-            if len(t) > 40:
-                summary = t
-                break
         out.append({
             "name": name,
             "source": rel,
             "bytes": os.path.getsize(p),
             "sha256": sha16(open(p, "rb").read()),
-            "summary": summary[:300],
-            "status": "LOCKED (see source file)",
+            "summary": _firewall_summary(text),
+            "status": _firewall_status(text),
         })
+
+    for name, rel in FIREWALL_SOURCES:
+        add(rel, name)
+    for rel in FIREWALL_GENERIC_SOURCES:
+        add(rel, os.path.basename(rel)[: -len(".md")].replace("_", " ").title())
+
+    fdir = os.path.join(proj_path, "foundation")
+    if os.path.isdir(fdir):
+        for fn in sorted(os.listdir(fdir)):
+            if not fn.endswith(".md"):
+                continue
+            if not any(tok in fn.upper() for tok in FIREWALL_NAME_TOKENS):
+                continue
+            rel = "foundation/" + fn
+            add(rel, FIREWALL_NAMED.get(rel, fn[: -len(".md")].replace("_", " ").title()))
+
     return out
 
 
