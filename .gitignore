@@ -1,0 +1,23 @@
+# ---- secrets: never committed ----
+data/.key
+data/audit.log
+data/proposals.jsonl
+data/decisions/
+data/current_url.txt
+*.key
+.env
+
+# ---- generated payload: rebuild with scripts/build.py ----
+# Deliberately NOT committed. Committing it would publish a second copy of the
+# project state that goes stale the moment the project changes -- the exact
+# failure mode this site's drift scanner exists to catch.
+data/index.json
+data/issues.json
+data/state/
+data/vault/
+data/chapters/
+
+# ---- runtime ----
+__pycache__/
+*.pyc
+node_modules/

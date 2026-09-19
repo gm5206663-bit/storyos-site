@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StoryOS</title>
+<style>
+:root{
+  --bg:#0b0d11; --panel:#11151c; --panel2:#0e1218; --line:#1e2530; --line2:#28323f;
+  --ink:#e6edf6; --dim:#8b98ab; --dim2:#5d6b7e;
+  --pass:#3ddc97; --fail:#ff5c6c; --warn:#ffb454; --info:#5aa9ff; --vi:#a97bff;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --serif:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--ink);
+  font:15px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--info);text-decoration:none}a:hover{text-decoration:underline}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+nav{background:var(--panel2);border-right:1px solid var(--line);padding:18px 13px;
+  position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim2)}
+.brand b{display:block;font-size:17px;letter-spacing:0;color:var(--ink);text-transform:none;
+  margin-top:4px;font-family:system-ui,sans-serif;font-weight:650}
+.navlist{margin-top:16px;display:flex;flex-direction:column;gap:2px}
+.navlist button{all:unset;cursor:pointer;padding:8px 10px;border-radius:8px;color:var(--dim);
+  font-size:14px;display:flex;align-items:center;gap:9px}
+.navlist button:hover{background:#151b24;color:var(--ink)}
+.navlist button.on{background:#182029;color:var(--ink);box-shadow:inset 2px 0 0 var(--info)}
+.navlist .n{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--dim2)}
+.edge{margin:16px 0;padding:10px 11px;border:1px solid var(--line2);border-radius:9px;background:#0c1015}
+.k{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim2)}
+.edge .v{font-family:var(--mono);font-size:13px;color:var(--pass);margin-top:3px}
+.edge .t{font-size:12px;color:var(--dim);margin-top:2px;font-style:italic}
+main{min-width:0;display:flex;flex-direction:column}
+header.top{display:flex;align-items:center;gap:14px;padding:15px 26px;
+  border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+header.top h1{font-size:18px;margin:0;font-weight:620;letter-spacing:-.01em}
+header.top .sub{font-size:12.5px;color:var(--dim);margin-top:2px}
+.grow{flex:1}
+input[type=search],input[type=text],select,textarea{background:#0c1015;border:1px solid var(--line2);
+  color:var(--ink);border-radius:8px;padding:8px 11px;font:13.5px/1.4 system-ui,sans-serif;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#3a4a63}
+textarea{font-family:var(--mono);font-size:13px;resize:vertical;width:100%}
+#root{padding:24px 26px 70px;max-width:1180px;width:100%}
+footer#foot{margin-top:auto;padding:13px 26px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--dim2)}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:99px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;border:1px solid}
+.pill.pass{color:var(--pass);border-color:#1d4c39;background:#0d1f18}
+.pill.fail{color:var(--fail);border-color:#5a2530;background:#1f0f13}
+.pill.warn{color:var(--warn);border-color:#5a4423;background:#1f1809}
+.pill.info{color:var(--info);border-color:#25415e;background:#0d1725}
+.pill.vi{color:var(--vi);border-color:#3d2f5c;background:#150f22}
+.pill.dim{color:var(--dim);border-color:var(--line2);background:#0e1218}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 17px}
+.card h2{font-size:13px;margin:0 0 11px;letter-spacing:.02em;color:var(--ink);font-weight:640;
+  display:flex;align-items:center;gap:8px}
+.card h2 .n{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--dim2);font-weight:400}
+.stat{padding:13px 15px}
+.stat .v{font-family:var(--mono);font-size:24px;letter-spacing:-.02em;margin-top:5px}
+.stat .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--dim2)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--dim2);font-weight:500;padding:7px 9px;border-bottom:1px solid var(--line2)}
+td{padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--dim)}
+tr:hover td{background:#131922;color:var(--ink)}
+td.mono,.mono{font-family:var(--mono);font-size:12px}
+.wrap{max-height:430px;overflow:auto;border:1px solid var(--line);border-radius:9px}
+pre{margin:0;padding:13px 15px;overflow:auto;font-family:var(--mono);font-size:12px;
+  line-height:1.65;color:var(--dim);white-space:pre-wrap;word-break:break-word}
+.md h1{font-size:22px;margin:22px 0 10px}.md h2{font-size:17px;margin:20px 0 8px}
+.md h3{font-size:15px;margin:16px 0 6px}
+.md p{margin:9px 0;color:#c9d4e2}.md li{margin:4px 0;color:#c9d4e2}
+.md code{font-family:var(--mono);font-size:12.5px;background:#161d27;padding:1px 5px;border-radius:4px;color:#a8c7fa}
+.md pre{background:#0c1015;border:1px solid var(--line);border-radius:8px;margin:11px 0}
+.md pre code{background:none;padding:0}
+.md blockquote{margin:11px 0;padding:8px 14px;border-left:3px solid var(--line2);color:var(--dim);background:#0e131a}
+.md table{margin:12px 0}.md hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+.btn{all:unset;cursor:pointer;padding:7px 13px;border-radius:8px;border:1px solid var(--line2);
+  background:#151b24;color:var(--ink);font-size:13px}
+.btn:hover{border-color:#3a4a63;background:#1a222d}
+.btn.pri{background:#16324a;border-color:#2b5f88;color:#cfe6ff}
+.btn.pri:hover{background:#1b3d59}
+.btn.dgr{background:#3a1a20;border-color:#6d2c36;color:#ffc9d0}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.chapterlist{display:flex;flex-direction:column;gap:1px}
+.chapterlist a{display:flex;gap:11px;align-items:baseline;padding:9px 12px;border-radius:8px;color:var(--dim)}
+.chapterlist a:hover{background:#151b24;text-decoration:none;color:var(--ink)}
+.chapterlist a.read{color:var(--dim2)}
+.chapterlist .num{font-family:var(--mono);font-size:11.5px;color:var(--dim2);min-width:34px}
+.chapterlist .ttl{flex:1;font-size:14px}
+.chapterlist .wc{font-family:var(--mono);font-size:11px;color:var(--dim2)}
+.prose{font-family:var(--serif);font-size:18.5px;line-height:1.78;color:#dfe6ef;max-width:70ch}
+.prose p{margin:0 0 1.05em}
+.prose h1{font-family:system-ui,sans-serif;font-size:26px;letter-spacing:-.02em;margin:0 0 6px;color:#fff}
+.prose hr{border:0;border-top:1px solid var(--line);margin:26px 0}
+.prose em{color:#eef3fa}
+.readbar{display:flex;gap:9px;align-items:center;padding:11px 0 20px;margin-bottom:22px;
+  border-bottom:1px solid var(--line);position:sticky;top:66px;background:var(--bg);z-index:4}
+details{border:1px solid var(--line);border-radius:9px;background:var(--panel2);margin:11px 0}
+details summary{cursor:pointer;padding:10px 13px;font-size:13px;color:var(--dim);list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary:hover{color:var(--ink)}
+details[open] summary{border-bottom:1px solid var(--line);color:var(--ink)}
+.note{font-size:12.5px;color:var(--dim2);line-height:1.6}
+.hl{background:#3d3312;color:#ffe6a8;border-radius:3px;padding:0 2px}
+.sev1{color:var(--fail)}.sev2{color:var(--warn)}.sev3{color:var(--info)}
+.empty{padding:34px;text-align:center;color:var(--dim2);font-size:13.5px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#16202b;
+  border:1px solid var(--line2);border-radius:10px;padding:11px 18px;font-size:13.5px;
+  box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:99;max-width:80vw}
+@media(max-width:900px){.app{grid-template-columns:1fr}nav{position:static;height:auto}
+  .prose{font-size:17px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav>
+    <div class="brand">StoryOS<b>Project Hub</b></div>
+    <div class="edge"><div class="k">Projects</div><div class="v" id="edgeV">—</div>
+      <div class="t" id="edgeT">loading…</div></div>
+    <div class="navlist" id="nav"></div>
+  </nav>
+  <main>
+    <header class="top">
+      <div><h1 id="ttl">Overview</h1><div class="sub" id="sub">—</div></div>
+      <div class="grow"></div>
+      <input id="q" type="search" placeholder="Search prose… ( / )" autocomplete="off" size="26">
+    </header>
+    <div id="root"></div>
+    <footer id="foot">—</footer>
+  </main>
+</div>
+
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const el=h=>{const d=document.createElement('div');d.innerHTML=h.trim();return d;};
+const j=async u=>{const r=await fetch(u);if(!r.ok)throw new Error(u+' -> '+r.status);return r.json();};
+const txt=async u=>{const r=await fetch(u);if(!r.ok)throw new Error(u+' -> '+r.status);return r.text();};
+const nf=n=>(n==null?'—':Number(n).toLocaleString('en-IN'));
+const LS={
+  get:(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+  set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+
+let IDX=null, ISSUES=null, STATE={}, GATES={};
+
+/* ---------------- minimal markdown ---------------- */
+function md(src){
+  if(!src) return '';
+  const lines=String(src).replace(/\r\n/g,'\n').split('\n');
+  let out=[],i=0,inList=false,inTable=false;
+  const closeList=()=>{if(inList){out.push('</ul>');inList=false}};
+  const closeTable=()=>{if(inTable){out.push('</tbody></table>');inTable=false}};
+  const inline=s=>esc(s)
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+  while(i<lines.length){
+    let L=lines[i];
+    if(/^```/.test(L)){closeList();closeTable();let buf=[];i++;
+      while(i<lines.length&&!/^```/.test(lines[i])){buf.push(lines[i]);i++}
+      i++;out.push('<pre><code>'+esc(buf.join('\n'))+'</code></pre>');continue}
+    if(/^\s*\|.*\|\s*$/.test(L)&&i+1<lines.length&&/^\s*\|[\s:|-]+\|\s*$/.test(lines[i+1])){
+      closeList();
+      const hd=L.split('|').slice(1,-1).map(c=>c.trim());
+      i+=2;let rows=[];
+      while(i<lines.length&&/^\s*\|.*\|\s*$/.test(lines[i])){
+        rows.push(lines[i].split('|').slice(1,-1).map(c=>c.trim()));i++}
+      if(!inTable){out.push('<table><thead><tr>'+hd.map(h=>'<th>'+inline(h)+'</th>').join('')+'</tr></thead><tbody>');inTable=true}
+      rows.forEach(r=>out.push('<tr>'+r.map(c=>'<td>'+inline(c)+'</td>').join('')+'</tr>'));
+      closeTable();continue}
+    const h=L.match(/^(#{1,6})\s+(.*)$/);
+    if(h){closeList();closeTable();const n=h[1].length;
+      out.push('<h'+n+'>'+inline(h[2])+'</h'+n+'>');i++;continue}
+    if(/^\s*(---|\*\*\*)\s*$/.test(L)){closeList();closeTable();out.push('<hr>');i++;continue}
+    if(/^\s*>\s?/.test(L)){closeList();closeTable();
+      let buf=[];while(i<lines.length&&/^\s*>\s?/.test(lines[i])){buf.push(lines[i].replace(/^\s*>\s?/,''));i++}
+      out.push('<blockquote>'+inline(buf.join(' '))+'</blockquote>');continue}
+    const li=L.match(/^\s*[-*+]\s+(.*)$/);
+    if(li){closeTable();if(!inList){out.push('<ul>');inList=true}
+      out.push('<li>'+inline(li[1])+'</li>');i++;continue}
+    if(/^\s*$/.test(L)){closeList();closeTable();i++;continue}
+    closeList();closeTable();
+    let buf=[L];i++;
+    while(i<lines.length&&!/^\s*$/.test(lines[i])&&!/^(#{1,6}\s|\s*[-*+]\s|\s*>|\s*\||```)/.test(lines[i])){buf.push(lines[i]);i++}
+    out.push('<p>'+inline(buf.join(' '))+'</p>');
+  }
+  closeList();closeTable();
+  return out.join('\n');
+}
+/* prose: keep paragraph breaks, honour markdown emphasis and scene breaks */
+function prose(src){
+  if(!src) return '';
+  const blocks=String(src).replace(/\r\n/g,'\n').split(/\n{2,}/);
+  return blocks.map(b=>{
+    const t=b.trim();if(!t)return '';
+    if(/^#{1,6}\s/.test(t)) return md(t);
+    if(/^(---|\*\*\*|·{3})$/.test(t.replace(/\s/g,''))) return '<hr>';
+    const inner=esc(t).replace(/\n/g,'<br>')
+      .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+      .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>');
+    return '<p>'+inner+'</p>';
+  }).join('\n');
+}
+
+/* ---------------- nav ---------------- */
+const VIEWS=[
+  ['home','Overview',null],
+  ['read','Reader',null],
+  ['state','State',null],
+  ['vault','Vault',null],
+  ['integrity','Integrity',null],
+  ['growth','Growth',null],
+  ['agents','Agent contract',null],
+];
+function drawNav(){
+  $('#nav').innerHTML=VIEWS.map(([id,l,n],k)=>
+    `<button data-go="${id}" class="${k===0?'on':''}">${esc(l)}${n==null?'':'<span class="n">'+n+'</span>'}</button>`).join('');
+  document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
+}
+function go(v,arg){location.hash=arg?`#${v}/${arg}`:`#${v}`}
+
+/* ---------------- views ---------------- */
+function pill(g){const c=g==='PASS'?'pass':g==='FAIL'?'fail':g==='WARN'?'warn':'dim';
+  return `<span class="pill ${c}">${esc(g||'—')}</span>`}
+
+function vHome(){
+  const t=IDX.totals||{};
+  const cards=Object.entries(IDX.projects||{}).map(([pid,p])=>{
+    const e=p.edge||{},c=p.counts||{},g=GATES[pid]||{};
+    return `<div class="card">
+      <h2>${esc(p.label)} <span class="n">${esc(pid)}</span></h2>
+      <div class="row" style="margin-bottom:12px">${pill(g.result||p.gate)}
+        ${g.drafting_permitted===false?'<span class="pill fail">drafting blocked</span>':
+          g.drafting_permitted?'<span class="pill pass">drafting permitted</span>':''}</div>
+      <table><tbody>
+        <tr><td>live edge</td><td class="mono">after Ch${esc(e.fic_chapter)} — ${esc(e.fic_title||'')}</td></tr>
+        <tr><td>canon consumed</td><td class="mono">${esc(e.canon_consumed||'—')} ${esc(e.canon_consumed_title||'')}</td></tr>
+        <tr><td>next fic chapter</td><td class="mono">Ch${esc(e.next_fic_chapter||'—')}</td></tr>
+        <tr><td>next source</td><td class="mono">${esc(e.next_source||'None')} ${esc(e.next_source_title||'')}</td></tr>
+        <tr><td>authority</td><td class="mono">${esc(e.authority||'none — no manifest')}</td></tr>
+      </tbody></table>
+      <div class="grid g4" style="margin-top:13px">
+        <div class="stat"><div class="l">chapters</div><div class="v">${nf(c.chapters)}</div></div>
+        <div class="stat"><div class="l">words</div><div class="v">${c.prose_words?Math.round(c.prose_words/1000)+'k':'—'}</div></div>
+        <div class="stat"><div class="l">files</div><div class="v">${nf(c.files)}</div></div>
+        <div class="stat"><div class="l">drift</div><div class="v" style="color:${(p.drift_findings&&(p.drift_findings.findings||p.drift_findings))?'var(--fail)':'var(--pass)'}">${nf((p.drift_findings&&p.drift_findings.findings)||0)}</div></div>
+      </div>
+      ${(g.error_list||[]).concat(g.warning_list||[]).length?
+        `<details open><summary>Gate findings (${(g.error_list||[]).length} errors, ${(g.warning_list||[]).length} warnings)</summary>
+         <pre>${esc((g.error_list||[]).map(x=>'ERROR  '+x).concat((g.warning_list||[]).map(x=>'WARN   '+x)).join('\n'))}</pre></details>`:''}
+      <div class="row" style="margin-top:13px">
+        <button class="btn pri" data-go="read/${pid}">Read</button>
+        <button class="btn" data-go="state/${pid}">State</button>
+        <button class="btn" data-go="vault/${pid}">Vault</button>
+        <button class="btn" data-go="integrity/${pid}">Integrity</button>
+      </div></div>`;
+  }).join('');
+  return `<div class="grid g4" style="margin-bottom:16px">
+      <div class="card stat"><div class="l">projects</div><div class="v">${nf(t.projects)}</div></div>
+      <div class="card stat"><div class="l">chapters</div><div class="v">${nf(t.chapters)}</div></div>
+      <div class="card stat"><div class="l">prose words</div><div class="v">${t.prose_words?Math.round(t.prose_words/1000)+'k':'—'}</div></div>
+      <div class="card stat"><div class="l">source files</div><div class="v">${nf(t.files)}</div></div>
+    </div>
+    <div class="grid g2">${cards}</div>
+    <div class="card" style="margin-top:14px">
+      <h2>What this site is</h2>
+      <div class="md">${md(`Every file of every project, published with a sha256 so any consumer can detect alteration.
+A new agent reads \`/agents.md\`, then \`/api/gate/<project>\`, and knows the live edge, the locks,
+the firewalls and what it may not do — without a human re-explaining anything.
+
+**Growth model:** nothing here is writable by the public. Any agent can \`POST /api/propose/<project>\`
+to queue a correction; only the key holder promotes it into canon. That is deliberate — an
+earlier test suite wrote a fake rule into real canon and passed while leaving it behind.`)}
+      </div></div>`;
+}
+
+async function vRead(pid,n){
+  const pids=Object.keys(IDX.projects||{});
+  if(!pid) pid=LS.get('lastProject',pids[0]);
+  const st=STATE[pid]||(STATE[pid]=await j('/api/state/'+pid));
+  const chs=st.chapters||[];
+  const read=LS.get('read:'+pid,{});
+  if(!n){
+    const rows=chs.map(c=>`<a href="#read/${pid}/${c.n}" class="${read[c.n]?'read':''}">
+        <span class="num">${c.n==null?'—':String(c.n).padStart(2,'0')}</span>
+        <span class="ttl">${esc(c.title||'(untitled)')}</span>
+        <span class="wc">${nf(c.prose_words)} w${c.has_footer?' · notes':''}</span></a>`).join('');
+    return `<div class="row" style="margin-bottom:14px">
+        <select id="psel">${pids.map(p=>`<option value="${p}" ${p===pid?'selected':''}>${esc(IDX.projects[p].label)}</option>`).join('')}</select>
+        <span class="pill info">${chs.length} chapters</span>
+        <span class="pill dim">${nf(read?Object.keys(read).length:0)} read</span>
+        <button class="btn" id="clearread">clear progress</button></div>
+      <div class="card"><div class="chapterlist">${rows||'<div class="empty">no chapters</div>'}</div></div>`;
+  }
+  const c=await j(`/api/chapter/${pid}/${n}`);
+  LS.set('lastProject',pid);
+  const all=chs.map(x=>x.n).filter(x=>x!=null).sort((a,b)=>a-b);
+  const i=all.indexOf(Number(n));
+  const prev=i>0?all[i-1]:null, next=i>=0&&i<all.length-1?all[i+1]:null;
+  return `<div class="readbar">
+      <button class="btn" data-go="read/${pid}">← all chapters</button>
+      ${prev?`<button class="btn" data-go="read/${pid}/${prev}">‹ Ch${prev}</button>`:'<span></span>'}
+      <div class="grow"></div>
+      <span class="pill dim">${nf(c.prose_words)} words</span>
+      <button class="btn" id="markread">${read[n]?'✓ read':'mark read'}</button>
+      ${next?`<button class="btn pri" data-go="read/${pid}/${next}">Ch${next} ›</button>`:''}
+    </div>
+    <article class="prose md"><h1>Chapter ${esc(n)} — ${esc(c.title||'')}</h1>${prose(c.prose)}</article>
+    ${c.footer?`<details><summary>Production notes (footer — canon beats, locks, guards)</summary>
+      <div class="md" style="padding:4px 15px 15px">${md(c.footer)}</div></details>`:''}
+    ${c.coverage?`<details><summary>Canon coverage receipt — ${esc(c.coverage_file||'')}</summary>
+      <div class="md" style="padding:4px 15px 15px">${md(c.coverage)}</div></details>`:''}
+    <div class="row" style="margin-top:20px">
+      <span class="note mono">sha256[:16] ${esc(c.sha256)} · ${nf(c.bytes)} B on disk</span></div>`;
+}
+
+async function vState(pid){
+  const pids=Object.keys(IDX.projects||{});
+  if(!pid) pid=LS.get('lastProject',pids[0]);
+  const st=STATE[pid]||(STATE[pid]=await j('/api/state/'+pid));
+  const chars=st.characters||{}, fws=st.firewalls||[], locks=st.locks||[], decs=(st.decisions||[]).concat(st.local_decisions||[]);
+  const e=st.edge||{};
+  return `<div class="row" style="margin-bottom:14px">
+      <select id="psel">${pids.map(p=>`<option value="${p}" ${p===pid?'selected':''}>${esc(IDX.projects[p].label)}</option>`).join('')}</select>
+      ${pill((GATES[pid]||{}).result)} <span class="pill dim">${esc(st.authority||'no authority')}</span></div>
+    <div class="grid g4" style="margin-bottom:14px">
+      <div class="card stat"><div class="l">live edge</div><div class="v">Ch${esc(e.fic_chapter||'—')}</div></div>
+      <div class="card stat"><div class="l">next source</div><div class="v">${esc(e.next_source||'—')}</div></div>
+      <div class="card stat"><div class="l">locks</div><div class="v">${nf(locks.length)}</div></div>
+      <div class="card stat"><div class="l">learned rules</div><div class="v">${nf(decs.length)}</div></div>
+    </div>
+    <div class="card"><h2>Characters <span class="n">${Object.keys(chars).length}</span></h2>
+      <table><thead><tr><th style="width:150px">who</th><th>state at the live edge</th></tr></thead><tbody>
+      ${Object.entries(chars).map(([k,v])=>`<tr><td><b style="color:var(--ink)">${esc(k)}</b></td>
+        <td>${esc(typeof v==='string'?v:(v.state||JSON.stringify(v)))}</td></tr>`).join('')
+        ||'<tr><td colspan="2" class="empty">none derived</td></tr>'}
+      </tbody></table></div>
+    <div class="card" style="margin-top:14px"><h2>Knowledge firewalls <span class="n">${fws.length}</span></h2>
+      <div class="note" style="margin-bottom:9px">Who may know what, and not before when. Author knowledge is not character knowledge.</div>
+      <table><thead><tr><th>firewall</th><th style="width:120px">status</th><th>source / earliest valid change</th></tr></thead><tbody>
+      ${fws.map(f=>`<tr><td><b style="color:var(--ink)">${esc(f.name)}</b></td>
+        <td>${f.status&&/HIDDEN/.test(f.status)?'<span class="pill vi">'+esc(f.status)+'</span>':'<span class="pill info">'+esc(f.status||'—')+'</span>'}</td>
+        <td class="mono">${esc(f.source||f.who||'')}<br><span style="color:var(--dim2)">${esc(f.earliest_valid_change||f.summary||'')}</span></td></tr>`).join('')
+        ||'<tr><td colspan="3" class="empty">none registered — a GAP, not permission to assume characters know nothing</td></tr>'}
+      </tbody></table></div>
+    <div class="card" style="margin-top:14px"><h2>Binding learned rules <span class="n">${decs.length}</span></h2>
+      ${decs.map(d=>`<details><summary><b>${esc(d.id||'?')}</b> · ${esc(d.kind||'rule')} · ${esc((d.rule||'').slice(0,110))}</summary>
+        <pre>${esc(JSON.stringify(d,null,1))}</pre></details>`).join('')
+        ||'<div class="empty">none recorded — follow the project\'s own foundation/ and codex/</div>'}</div>
+    <div class="card" style="margin-top:14px"><h2>Lock cards <span class="n">${locks.length}</span></h2>
+      ${locks.length?`<div class="wrap"><table><thead><tr><th>id</th><th>source</th><th style="width:90px">date</th><th>body</th></tr></thead><tbody>
+      ${locks.map(l=>`<tr><td class="mono">${esc(l.id)}</td><td class="mono" style="color:var(--dim2)">${esc(l.source||l.path||'')}</td>
+        <td class="mono">${esc(l.source_date||'')}</td><td>${esc((l.body||'').replace(/^Generated by.*?\n\n/s,'').slice(0,240))}</td></tr>`).join('')}
+      </tbody></table></div>`:'<div class="empty">no .card.md files in the active tree</div>'}</div>`;
+}
+
+async function vVault(pid){
+  const pids=Object.keys(IDX.projects||{});
+  if(!pid) pid=LS.get('lastProject',pids[0]);
+  const v=await j('/api/vault/'+pid).catch(()=>({files:[]}));
+  const files=(v&&v.files)||[];
+  window._vault=files;
+  const kinds={};files.forEach(f=>kinds[f.kind]=(kinds[f.kind]||0)+1);
+  const bytes=files.reduce((a,f)=>a+f.bytes,0);
+  return `<div class="row" style="margin-bottom:14px">
+      <select id="psel">${pids.map(p=>`<option value="${p}" ${p===pid?'selected':''}>${esc(IDX.projects[p].label)}</option>`).join('')}</select>
+      <input id="vq" type="search" placeholder="filter path…" style="flex:1;min-width:200px">
+      <select id="vkind"><option value="">all kinds</option>
+        ${Object.keys(kinds).sort().map(k=>`<option value="${k}">${k} (${kinds[k]})</option>`).join('')}</select>
+    </div>
+    <div class="grid g4" style="margin-bottom:14px">
+      <div class="card stat"><div class="l">files</div><div class="v">${nf(files.length)}</div></div>
+      <div class="card stat"><div class="l">bytes</div><div class="v">${(bytes/1048576).toFixed(2)}M</div></div>
+      <div class="card stat"><div class="l">kinds</div><div class="v">${Object.keys(kinds).length}</div></div>
+      <div class="card stat"><div class="l">receipts excluded</div><div class="v">no</div></div>
+    </div>
+    <div class="card"><h2>Every file <span class="n" id="vcount">${files.length}</span></h2>
+      <div class="wrap" style="max-height:600px"><table><thead>
+        <tr><th>path</th><th style="width:76px">kind</th><th style="width:78px">bytes</th><th style="width:150px">sha256[:16]</th><th style="width:60px"></th></tr>
+      </thead><tbody id="vbody"></tbody></table></div></div>`;
+}
+function fillVault(pid){
+  const files=(window._vault||[]);
+  const qe=$('#vq'), ke=$('#vkind');
+  const q=qe?qe.value:'', k=ke?ke.value:'';
+  const rows=files.filter(f=>(!k||f.kind===k)&&(!q||f.path.toLowerCase().includes(q.toLowerCase())));
+  const b=$('#vbody'); if(!b)return;
+  b.innerHTML=rows.slice(0,900).map(f=>`<tr><td class="mono">${esc(f.path)}</td>
+    <td><span class="pill dim">${esc(f.kind)}</span></td><td class="mono">${nf(f.bytes)}</td>
+    <td class="mono" style="color:var(--dim2)">${esc(f.sha256)}</td>
+    <td>${f.text?`<a href="/api/file/${pid}/${encodeURI(f.path)}" target="_blank" rel="noopener">open</a>`:''}</td></tr>`).join('')
+    ||'<tr><td colspan="5" class="empty">no match</td></tr>';
+  const c=$('#vcount'); if(c)c.textContent=rows.length+(rows.length>900?' (first 900)':'');
+}
+
+async function vIntegrity(pid){
+  const pids=Object.keys(IDX.projects||{});
+  if(!pid) pid=LS.get('lastProject',pids[0]);
+  const all=ISSUES||(ISSUES=await j('/api/issues'));
+  const v=all[pid]||{};const d=v.drift||{};const g=v.scanner_gap||{};
+  const chk=(STATE[pid]||await j('/api/state/'+pid)).project_checker||{};
+  return `<div class="row" style="margin-bottom:14px">
+      <select id="psel">${pids.map(p=>`<option value="${p}" ${p===pid?'selected':''}>${esc(IDX.projects[p].label)}</option>`).join('')}</select>
+      <span class="pill ${d.counts&&d.counts.findings?'fail':'pass'}">${(d.counts||{}).findings||0} drift findings</span>
+      <span class="pill dim">${nf(d.scanned)} active files scanned</span></div>
+
+    <div class="grid g2">
+      <div class="card"><h2>The project's own validator</h2>
+        <div class="row" style="margin-bottom:10px">${pill(chk.result||(chk.present?'—':'ABSENT'))}
+          <span class="note mono">${esc(chk.tool||'no tools/ checker in this project')}</span></div>
+        ${chk.fields?`<table><tbody>${Object.entries(chk.fields).map(([k,x])=>
+          `<tr><td class="mono">${esc(k)}</td><td class="mono" style="color:var(--ink)">${esc(x)}</td></tr>`).join('')}</tbody></table>`:''}
+        <div class="note" style="margin-top:10px">Run by the site build against the project's own files — not copied from a receipt.</div></div>
+      <div class="card"><h2>Independent drift scan</h2>
+        <div class="note">Scans the active tree (archive/ and audits/ excluded as receipts) plus workspace-root handoff
+        files for statements asserting a <b>current</b> live edge that disagrees with
+        <span class="mono">${esc(d.expected_edge?'Chapter'+d.expected_edge:'—')}</span>.</div>
+        <table style="margin-top:11px"><tbody>
+          <tr><td>findings</td><td class="mono">${nf((d.counts||{}).findings)}</td></tr>
+          <tr><td>files affected</td><td class="mono">${nf((d.counts||{}).files_affected)}</td></tr>
+          <tr><td>SEV-1 / SEV-2 / SEV-3</td><td class="mono">${(d.counts||{}).sev1||0} / ${(d.counts||{}).sev2||0} / ${(d.counts||{}).sev3||0}</td></tr>
+          <tr><td>files scanned</td><td class="mono">${nf(d.scanned)}</td></tr>
+        </tbody></table>
+        <details style="margin-top:11px"><summary>How false positives are avoided</summary>
+          <div class="md" style="padding:4px 14px 14px">${md(`1. **Section context.** A claim under a dated heading (\`## 2026-09-13 — Chapter32 written and synced\`) that matches that heading's chapter is a receipt, not drift.
+2. **Self-file.** \`Canon_Coverage_Chapter_36.md\` saying "Current after Chapter36" documents its own chapter.
+3. **Sentence scope.** A line may describe history *and then* assert the current edge; only the sentence carrying the claim is judged.
+4. **Claim class.** Directives ("Live edge is after…", "CURRENT OVERRIDE after…") are never exempted.`)}
+          </div></details></div>
+    </div>
+
+    <div class="card" style="margin-top:14px"><h2>Findings <span class="n">${(d.by_file||[]).length} files</span></h2>
+      ${(d.by_file||[]).length?`<div class="wrap" style="max-height:520px"><table><thead>
+        <tr><th style="width:70px">sev</th><th>file</th><th style="width:80px">lines</th><th style="width:90px">claims</th><th>text</th></tr></thead><tbody>
+        ${d.by_file.map(r=>`<tr><td><span class="pill ${r.severity==='SEV-1'?'fail':r.severity==='SEV-2'?'warn':'info'}">${r.severity}</span></td>
+          <td class="mono">${esc(r.file)}</td><td class="mono">${esc(r.lines.join(', '))}</td>
+          <td class="mono sev1">Ch${esc(r.claims.join(', Ch'))}</td>
+          <td style="color:var(--dim)">${esc(r.worst_text.slice(0,200))}</td></tr>`).join('')}
+        </tbody></table></div>`:'<div class="empty">clean — no active-tree file asserts a wrong live edge</div>'}</div>
+
+    <div class="card" style="margin-top:14px"><h2>Why the project's validator reports 0</h2>
+      <div class="note" style="margin-bottom:11px">Derived by replaying the validator's own declared scope and its own two live-edge
+      regexes against each finding. Nothing here is asserted.</div>
+      <table><thead><tr><th style="width:210px">cause</th><th style="width:60px">n</th><th>files</th></tr></thead><tbody>
+      ${Object.entries(g.by_cause||{}).filter(([,v])=>v.length).map(([k,v])=>
+        `<tr><td class="mono">${esc(k)}</td><td class="mono">${v.length}</td>
+         <td class="mono" style="color:var(--dim2)">${esc(v.map(x=>x.replace(/^\(workspace root\)\//,'')).join(', '))}</td></tr>`).join('')
+        ||'<tr><td colspan="3" class="empty">no findings to explain</td></tr>'}
+      </tbody></table>
+      <div class="grid g2" style="margin-top:13px">
+        <div><div class="k" style="margin-bottom:6px">their scope</div>
+          <pre>active_markdown_dirs: ${esc(JSON.stringify(g.their_scope_dirs))}
+top_level_active_files: ${esc(JSON.stringify(g.their_scope_top_level_files))}
+
+live-edge regex:
+  ${esc(g.their_live_edge_regex||'')}
+current-after regex:
+  ${esc(g.their_current_after_regex||'')}</pre></div>
+        <div><div class="k" style="margin-bottom:6px">the fix</div>
+          <pre>add dirs       : ${esc(JSON.stringify(g.fix_add_dirs))}
+add top-level  : ${esc(JSON.stringify(g.fix_add_top_level_files))}
+add root scope : ${esc(JSON.stringify(g.fix_add_root_scope))}
+
+add to active_stale_regexes:
+${esc(JSON.stringify((g.fix_add_regexes||[]).map(r=>({id:r.id,regex:r.regex})),null,1))}</pre></div>
+      </div>
+      ${(g.fix_add_regexes||[]).map(r=>`<div class="note" style="margin-top:9px"><b>${esc(r.id)}</b> — ${esc(r.why||'')}</div>`).join('')}
+    </div>`;
+}
+
+async function vGrowth(pid){
+  const pids=Object.keys(IDX.projects||{});
+  if(!pid) pid=LS.get('lastProject',pids[0]);
+  const [pr,mf]=await Promise.all([j('/api/proposals'),j('/api/manifest.json')]);
+  const props=(pr.proposals||[]).slice().reverse();
+  const wm=mf.write_model||{};
+  return `<div class="card"><h2>Write model</h2>
+      <div class="md">${md(`**There is no public write path to canon.** ${wm.key_configured?'A write key is configured on this server.':'No write key is configured, so key routes return 503.'}
+
+- \`POST /api/propose/<project>\` — **public**. Queues a proposal in an inbox. Changes nothing.
+- \`POST /api/learn/<project>\`, \`/api/promote\`, \`/api/scan/<project>\` — require \`X-StoryOS-Key\`.
+- Every authenticated write **and every denial** is appended to \`data/audit.log\`.
+
+This exists because an earlier test suite wrote a fake rule into real canon and then *passed*
+while leaving it behind. A test that pollutes the thing it tests is defective; so is an API
+that lets anyone pollute canon.`)}</div></div>
+
+    <div class="card" style="margin-top:14px"><h2>Propose a rule <span class="n">public, inert until promoted</span></h2>
+      <div class="row" style="margin-bottom:9px">
+        <select id="pproj">${pids.map(p=>`<option value="${p}" ${p===pid?'selected':''}>${esc(IDX.projects[p].label)}</option>`).join('')}</select>
+        <select id="pkind"><option>correction</option><option>rejection</option><option>lock</option><option>question</option></select>
+        <input id="pwho" type="text" placeholder="your name / agent id" style="width:190px">
+      </div>
+      <textarea id="prule" rows="3" placeholder="The rule, stated so it can be enforced. e.g. Yan Shuo current power is Rank39/SP962; any other pair is drift."></textarea>
+      <div class="grid g2" style="margin-top:9px">
+        <input id="pnever" type="text" placeholder="never as achieved fact: e.g. Rank23/SP156">
+        <input id="ppat" type="text" placeholder="enforced pattern (regex or literal)">
+      </div>
+      <input id="pwhy" type="text" placeholder="why — what went wrong without this rule" style="width:100%;margin-top:9px">
+      <div class="row" style="margin-top:11px"><button class="btn pri" id="psend">Submit proposal</button>
+        <span class="note">Queued for the human. Nothing is written to canon.</span></div></div>
+
+    <div class="card" style="margin-top:14px"><h2>Inbox <span class="n">${props.length}</span></h2>
+      ${props.length?`<div class="wrap"><table><thead><tr><th style="width:130px">when</th><th style="width:110px">id</th>
+        <th style="width:120px">project</th><th>rule</th><th style="width:90px">status</th></tr></thead><tbody>
+        ${props.map(p=>`<tr><td class="mono">${esc(p.ts)}</td><td class="mono">${esc(p.id)}</td>
+          <td class="mono">${esc(p.project)}</td>
+          <td>${esc(p.rule)}${p.enforced_pattern?`<div class="note mono">pattern: ${esc(p.enforced_pattern)}</div>`:''}
+              ${p.why?`<div class="note">why: ${esc(p.why)}</div>`:''}
+              <div class="note mono">by ${esc(p.proposer)} from ${esc(p.client)}</div></td>
+          <td><span class="pill ${p.status==='promoted'?'pass':'warn'}">${esc(p.status)}</span></td></tr>`).join('')}
+        </tbody></table></div>`:'<div class="empty">inbox empty — no proposals yet</div>'}</div>
+
+    <div class="card" style="margin-top:14px"><h2>Promote (key holder)</h2>
+      <div class="row"><input id="kfield" type="text" placeholder="X-StoryOS-Key" style="width:280px">
+        <input id="promoid" type="text" placeholder="proposal id" style="width:150px">
+        <button class="btn" id="promote">Promote to canon</button>
+        <button class="btn" id="rescan">Re-scan project</button></div>
+      <div class="note" style="margin-top:9px">The key is never stored in the page or the static export. It is sent only on these two buttons.</div>
+      <pre id="kout" style="margin-top:11px;display:none"></pre></div>`;
+}
+
+async function vAgents(){
+  const t=await txt('/agents.md');
+  const r=await txt('/report.md').catch(()=>'');
+  return `<div class="card"><h2>/agents.md — served live, always current</h2>
+      <div class="md">${md(t)}</div></div>
+    ${r?`<div class="card" style="margin-top:14px"><h2>/report.md</h2><div class="md">${md(r)}</div></div>`:''}`;
+}
+
+/* ---------------- search ---------------- */
+async function runSearch(q){
+  if(!q||q.length<3){return}
+  const pid=LS.get('lastProject',Object.keys(IDX.projects||{})[0]);
+  const st=STATE[pid]||(STATE[pid]=await j('/api/state/'+pid));
+  const chs=st.chapters||[];
+  const rx=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+  const hits=[];
+  for(const c of chs){
+    if(hits.length>=60)break;
+    try{
+      const d=await j(`/api/chapter/${pid}/${c.n}`);
+      const body=(d.prose||'')+'\n'+(d.footer||'');
+      let m,cnt=0,first=null;
+      rx.lastIndex=0;
+      while((m=rx.exec(body))&&cnt<3){
+        if(!first)first=Math.max(0,m.index-90);
+        cnt++}
+      if(cnt)hits.push({c,cnt,snip:body.slice(first,first+230)});
+    }catch(e){}
+  }
+  $('#root').innerHTML=`<div class="card"><h2>Search “${esc(q)}” in ${esc(IDX.projects[pid].label)} <span class="n">${hits.length} chapters</span></h2>
+    ${hits.length?hits.map(h=>`<div style="padding:11px 0;border-bottom:1px solid var(--line)">
+      <a href="#read/${pid}/${h.c.n}"><b>Chapter ${h.c.n} — ${esc(h.c.title)}</b></a>
+      <span class="pill dim" style="margin-left:8px">${h.cnt}${h.cnt>2?'+':''} hits</span>
+      <div class="note" style="margin-top:5px">…${esc(h.snip).replace(rx,'')}…</div></div>`).join('')
+      :'<div class="empty">no match in prose or production notes</div>'}</div>`;
+  $('#ttl').textContent='Search';$('#sub').textContent=q;
+}
+
+/* ---------------- router ---------------- */
+const TITLES={home:['Overview','every project, its gate and its live edge'],
+  read:['Reader','prose first; production notes folded away'],
+  state:['State','edge, characters, firewalls, locks, learned rules'],
+  vault:['Vault','every file with its sha256'],
+  integrity:['Integrity','independent drift scan vs the project\'s own validator'],
+  growth:['Growth','propose → human promotes → canon'],
+  agents:['Agent contract','what a new agent reads first']};
+
+async function route(){
+  const h=(location.hash||'#home').slice(1);
+  const [view,...rest]=h.split('/');
+  const v=VIEWS.some(x=>x[0]===view)?view:'home';
+  document.querySelectorAll('[data-go]').forEach(b=>
+    b.classList.toggle('on',b.dataset.go.split('/')[0]===v));
+  $('#ttl').textContent=(TITLES[v]||['StoryOS'])[0];
+  $('#sub').textContent=(TITLES[v]||['',''])[1];
+  $('#root').innerHTML='<div class="empty">loading…</div>';
+  $('#q').style.display=(v==='read'&&!rest[1])?'':'none';
+  try{
+    let html='';
+    if(v==='home')html=vHome();
+    else if(v==='read'){html=await vRead(rest[0],rest[1]);}
+    else if(v==='state')html=await vState(rest[0]);
+    else if(v==='vault'){
+      const pid=rest[0]||LS.get('lastProject',Object.keys(IDX.projects)[0]);
+      html=await vVault(pid);
+      $('#root').innerHTML=html;
+      fillVault(pid);
+      const qe=$('#vq'), ke=$('#vkind');
+      if(qe)qe.oninput=()=>fillVault(pid);
+      if(ke)ke.onchange=()=>fillVault(pid);
+    }
+    else if(v==='integrity')html=await vIntegrity(rest[0]);
+    else if(v==='growth')html=await vGrowth(rest[0]);
+    else if(v==='agents')html=await vAgents();
+    if(v!=='vault')$('#root').innerHTML=html;
+    wire(v,rest);
+  }catch(e){
+    $('#root').innerHTML=`<div class="card"><h2>Load failed</h2><pre>${esc(String(e&&e.message||e))}</pre>
+      <div class="note">If this is a Cloudflare 530/1033, the tunnel connector dropped — re-read the pointer paste.</div></div>`;
+  }
+  $('#foot').textContent=`storyos-site · built ${IDX.generated_utc} · ${nf(IDX.totals.files)} files · `+
+    `${nf(IDX.totals.chapters)} chapters · ${nf(IDX.totals.prose_words)} words · data verified by sha256`;
+}
+
+function wire(v,rest){
+  document.querySelectorAll('[data-go]').forEach(b=>{
+    if(!b.onclick)b.onclick=()=>go(b.dataset.go)});
+  const sel=$('#psel');
+  if(sel)sel.onchange=()=>{LS.set('lastProject',sel.value);
+    location.hash=`#${v}/${sel.value}${rest[1]?'/'+rest[1]:''}`};
+  if(v==='read'&&!rest[1]){
+    const cr=$('#clearread');
+    if(cr)cr.onclick=()=>{LS.set('read:'+(rest[0]||LS.get('lastProject','')),{});route()};
+  }
+  if(v==='read'&&rest[1]){
+    const pid=rest[0],n=rest[1];
+    const mr=$('#markread');
+    if(mr)mr.onclick=()=>{const r=LS.get('read:'+pid,{});
+      if(r[n])delete r[n];else r[n]=Date.now();LS.set('read:'+pid,r);route()};
+    window.scrollTo(0,0);
+  }
+  if(v==='growth'){
+    const s=$('#psend');
+    if(s)s.onclick=async()=>{
+      s.disabled=true;
+      try{
+        const r=await fetch('/api/propose/'+$('#pproj').value,{method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({rule:$('#prule').value,kind:$('#pkind').value,
+            never:$('#pnever').value,pattern:$('#ppat').value,why:$('#pwhy').value,
+            proposer:$('#pwho').value||'anonymous'})});
+        const d=await r.json();
+        toast(d.ok?`Queued as ${d.id}. Nothing written to canon.`:('Failed: '+(d.error||r.status)));
+        if(d.ok){$('#prule').value='';$('#pwhy').value='';route()}
+      }catch(e){toast('Error: '+e.message)}
+      s.disabled=false;};
+    const p=$('#promote');
+    if(p)p.onclick=async()=>{
+      const out=$('#kout');out.style.display='block';out.textContent='…';
+      try{const r=await fetch('/api/promote',{method:'POST',
+          headers:{'Content-Type':'application/json','X-StoryOS-Key':$('#kfield').value},
+          body:JSON.stringify({id:$('#promoid').value})});
+        out.textContent=JSON.stringify(await r.json(),null,1);}catch(e){out.textContent=String(e)}};
+    const rs=$('#rescan');
+    if(rs)rs.onclick=async()=>{
+      const out=$('#kout');out.style.display='block';out.textContent='re-scanning…';
+      try{const r=await fetch('/api/scan/'+($('#pproj')||{}).value,{method:'POST',
+          headers:{'X-StoryOS-Key':$('#kfield').value}});
+        out.textContent=JSON.stringify(await r.json(),null,1);
+        ISSUES=null;STATE={};IDX=await j('/data/index.json');}catch(e){out.textContent=String(e)}};
+  }
+}
+let TT=null;
+function toast(m){const d=el(`<div class="toast">${esc(m)}</div>`);document.body.appendChild(d);
+  clearTimeout(TT);TT=setTimeout(()=>d.remove(),4200)}
+
+/* ---------------- boot ---------------- */
+(async function(){
+  drawNav();
+  try{
+    IDX=await j('/data/index.json');
+    ISSUES=await j('/data/issues.json').catch(()=>null);
+    const pids=Object.keys(IDX.projects||{});
+    await Promise.all(pids.map(async p=>{GATES[p]=(await j('/api/gate/'+p));}));
+    $('#edgeV').textContent=pids.length+' project'+(pids.length===1?'':'s');
+    const bad=pids.filter(p=>GATES[p].result!=='PASS');
+    $('#edgeT').innerHTML=bad.length
+      ? bad.map(p=>`${esc(p)} ${pill(GATES[p].result)}`).join('<br>')
+      : 'all gates PASS';
+    const rv=VIEWS.find(x=>x[0]==='read');
+    if(rv)rv[2]=nf(IDX.totals.chapters);
+    drawNav();
+    const ig=VIEWS.find(x=>x[0]==='integrity');
+    if(ig)ig[2]=nf(IDX.totals.drift_findings);
+    drawNav();
+  }catch(e){
+    $('#root').innerHTML=`<div class="card"><h2>Cannot load index</h2><pre>${esc(String(e))}</pre>
+      <div class="note">Run <span class="mono">python3 scripts/build.py</span> then restart the server.</div></div>`;
+    return;
+  }
+  let qt=null;
+  $('#q').addEventListener('input',e=>{clearTimeout(qt);const v=e.target.value.trim();
+    if(v.length>=3)qt=setTimeout(()=>runSearch(v),420)});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='/'&&document.activeElement.tagName!=='INPUT'&&document.activeElement.tagName!=='TEXTAREA'){
+      e.preventDefault();$('#q').focus()}});
+  window.addEventListener('hashchange',route);
+  route();
+})();
+</script>
+</body>
+</html>
