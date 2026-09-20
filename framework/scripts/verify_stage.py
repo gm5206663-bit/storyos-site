@@ -39,6 +39,51 @@ for f in sorted(out.rglob("*")):
         checked += 0
 if not (out / "agents.md").exists():
     fail.append("agents.md missing — no contract for the receiving agent")
+
+# A published artifact that records its own provenance must not drift from it. LAWS.md is
+# generated from the law JSON and footers the source's sha256 prefix; nothing checked that.
+# The prefix is derived FROM the footer and verified against the real source files, so this
+# fails only when the two disagree — not when a rebuild legitimately changes both together.
+SRC_RE = re.compile(r"source file sha256:\s*`([0-9a-f]{8,64})")
+law_docs = [p for p in (out.rglob("LAWS.md")) if p.is_file()]
+for doc in law_docs:
+    m = SRC_RE.search(doc.read_text(encoding="utf-8", errors="replace"))
+    if not m:
+        fail.append(f"{doc.relative_to(out)}: generated law doc lost its provenance footer")
+        continue
+    rec = m.group(1)
+    root = out.parent
+    cands = [p for p in (root / "laws" / "UNIVERSAL_LAWS.json",
+                         root / "storyos-home" / "laws" / "UNIVERSAL_LAWS.json",
+                         Path.home() / "storyos-home" / "laws" / "UNIVERSAL_LAWS.json",
+                         Path(__file__).resolve().parents[2] / "storyos-home" / "laws" / "UNIVERSAL_LAWS.json",
+                         Path(__file__).resolve().parents[1] / "laws" / "UNIVERSAL_LAWS.json")
+             if p.exists()]
+    for env in ("STORYOS_HOME",):
+        h = __import__("os").environ.get(env)
+        if h:
+            p = Path(h) / "laws" / "UNIVERSAL_LAWS.json"
+            if p.exists() and p not in cands:
+                cands.append(p)
+    if not cands:
+        fail.append(f"{doc.relative_to(out)}: provenance unverifiable — no laws/UNIVERSAL_LAWS.json "
+                    f"found near {root} (set $STORYOS_HOME to check it)")
+    else:
+        H = __import__("hashlib").sha256
+        digests = {str(c): H(c.read_bytes()).hexdigest() for c in cands}
+        # Not "any copy agrees" — that passed a real drift test, because a stale published copy
+        # was excused by an untouched runtime copy. Every copy must agree, and with the footer.
+        if len(set(digests.values())) > 1:
+            first = next(iter(digests.values()))
+            disagree = [k for k, v in digests.items() if v != first]
+            fail.append(f"{doc.relative_to(out)}: law source is ambiguous — "
+                        f"{len(digests)} copies exist and they do not agree; the published laws "
+                        f"cannot be traced to one source. Disagreeing: "
+                        f"{', '.join(disagree[:3])}")
+        if not all(d.startswith(rec) for d in digests.values()):
+            fail.append(f"{doc.relative_to(out)}: footer says source sha256 {rec}… but the law file on "
+                    f"disk hashes differently — the published laws drifted from their source "
+                    f"(regenerate; never hand-edit)")
 print(f"VERIFY_STAGE: {'FAIL' if fail else 'PASS'} ({checked} files checked, {len(fail)} issues)")
 for x in fail[:25]:
     print("  [FAIL]", x)
