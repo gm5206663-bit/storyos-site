@@ -32,8 +32,30 @@ SEV_ORDER = {"error": 0, "warn": 1, "info": 2}
 _INCLUDE_COVERAGE = False
 FIX_CTX = ("Restore the locked state. A context ban firing usually means the chapter asserted "
            "an unearned capability, not just a wrong number.")
-FIREWALL_STATES = {"KNOWN", "SUSPECTED", "UNKNOWN", "FALSE BELIEF", "KNOWN PARTLY",
-                   "DISBELIEF", "HIDDEN"}
+# The vocabularies live in the human's adopted law file, not in this source. A hard-coded set
+# here and a law file elsewhere is two sources of truth for one vocabulary, and they had
+# already diverged (laws say SUSPICION, this file used to say SUSPECTED).
+LAWS_PATH = Path(os.environ.get("STORYOS_HOME", str(Path.home() / "storyos-home"))) / "laws" / "UNIVERSAL_LAWS.json"
+
+
+def load_laws() -> dict:
+    """Adopted universal laws, or {} when absent. Never fatal: a missing law file degrades
+    to the built-in floor below rather than bricking the gate."""
+    try:
+        return json.loads(LAWS_PATH.read_text(encoding="utf-8")).get("laws") or {}
+    except (OSError, ValueError):
+        return {}
+
+
+_LAWS = load_laws()
+_FALLBACK_FIREWALL_STATES = {"KNOWN", "KNOWN PARTLY", "SUSPICION", "SUSPECTED",
+                             "DISBELIEF", "UNKNOWN", "FALSE BELIEF", "HIDDEN"}
+# SUSPECTED is kept only as a legacy alias so existing project state does not newly fail.
+FIREWALL_STATES = {s.upper() for s in (
+    [x.get("state") for x in (_LAWS.get("firewall_states") or []) if x.get("state")]
+    or sorted(_FALLBACK_FIREWALL_STATES))} | {"SUSPECTED"}
+CONFIDENCE_LEVELS = [x for x in (_LAWS.get("authority_order") or []) if isinstance(x, str)]
+FIREWALL_STATE_ALIAS = {"SUSPECTED": "SUSPICION"}
 NEXT_CHAPTER_RE = re.compile(
     r"\b(?:next|continue|proceed|draft|write)\s+(?:to\s+)?Chapter[\s_-]*(\d{1,4})", re.I)
 
@@ -402,11 +424,17 @@ def check_firewalls(manifest: dict, f: Findings) -> None:
     for rule in fw:
         who, topic = rule.get("character", "?"), rule.get("topic", "?")
         state = str(rule.get("state", "")).upper()
+        if state in FIREWALL_STATE_ALIAS:
+            f.add("firewall-integrity", "warn",
+                  f"{who}/{topic}: state '{state}' is a legacy alias for "
+                  f"'{FIREWALL_STATE_ALIAS[state]}' — adopt the spelling in "
+                  f"$STORYOS_HOME/laws/UNIVERSAL_LAWS.json.")
+            state = FIREWALL_STATE_ALIAS[state]
         if state not in FIREWALL_STATES:
             f.add("firewall-integrity", "error",
                   f"{who}/{topic}: state '{state}' is not one of "
                   f"{', '.join(sorted(FIREWALL_STATES))}.")
-        if not rule.get("earliest_valid_change"):
+        if not (rule.get("earliest_valid_change") or rule.get("earliest_change")):
             f.add("firewall-integrity", "error",
                   f"{who}/{topic}: no earliest_valid_change — the gate cannot be enforced.")
         if not rule.get("rule"):
@@ -727,6 +755,64 @@ def selftest() -> int:
         encoding="utf-8")
     cases.append(("power drift in live docs → FAIL", p, 1))
 
+    # ---- 6/7/8: the firewall vocabulary and field-name parity, both directions ----------
+    # A guard that only proves it can fail is half a test: it may be failing on correct data.
+    # 6: the legacy spelling must PASS (with a warning), or the adopted laws would newly break
+    #    the human's existing firewall table.
+    p = base / "fw_alias"; m = json.loads(json.dumps(good))
+    m["knowledge_firewalls"] = [{"character": "Lan", "topic": "seal", "state": "SUSPECTED",
+                                 "earliest_valid_change": "on-page disclosure", "rule": "x"}]
+    write(p, m)
+    cases.append(("SELFTEST GUARD 6: legacy SUSPECTED → PASS (alias honoured)", p, 0))
+    # 7: the laws' field name alone must satisfy the earliest-change rule.
+    p = base / "fw_laws_field"; m = json.loads(json.dumps(good))
+    m["knowledge_firewalls"] = [{"character": "Lan", "topic": "seal", "state": "SUSPICION",
+                                 "earliest_change": "on-page disclosure", "rule": "x"}]
+    write(p, m)
+    cases.append(("SELFTEST GUARD 7: laws' earliest_change field → PASS", p, 0))
+    # 8: remove every earliest-* field and it must fail again.
+    p = base / "fw_no_earliest"; m = json.loads(json.dumps(good))
+    m["knowledge_firewalls"] = [{"character": "Lan", "topic": "seal", "state": "HIDDEN",
+                                 "rule": "x"}]
+    write(p, m)
+    cases.append(("SELFTEST GUARD 8: firewall without earliest change → FAIL", p, 1))
+
+    # ---- intake rules: same discipline, proved against the real intake module ----------
+    intake_cases = []
+    try:
+        import importlib.util
+        _spec = importlib.util.spec_from_file_location(
+            "storyos_intake", Path(__file__).resolve().parent / "intake.py")
+        _ik = importlib.util.module_from_spec(_spec)
+        _spec.loader.exec_module(_ik)
+        good_rec = {"kind": "firewall", "project": "selftest", "who": "Lan",
+                    "state": "SUSPICION", "topic": "seal",
+                    "earliest_valid_change": "on-page disclosure", "rule": "x"}
+        bad = [
+            ("intake: unknown firewall state → reject",
+             {**good_rec, "state": "SORTA_KNOWN"}, True),
+            ("intake: reserved law key in a contribution → reject",
+             {**good_rec, "authority_order": ["me first"]}, True),
+            ("intake: non-Latin script → reject",
+             {**good_rec, "topic": "灵魂"}, True),
+            ("intake: literal backslash-n → reject",
+             {**good_rec, "rule": "line one\\nline two"}, True),
+            ("intake: firewall with no earliest field → reject",
+             {k: v for k, v in good_rec.items()
+              if k not in ("earliest_valid_change", "earliest_change")}, True),
+            ("intake: the same record, complete → ACCEPT (must not misfire)", good_rec, False),
+            ("intake: canon claim naming 'canon' strength with no sources → ACCEPT with a warning",
+             {"kind": "canon", "project": "selftest", "claim": "x happened",
+              "confidence": "canon"}, False),
+        ]
+        for label, rec, want_reject in bad:
+            rep = _ik.validate_records([rec], "selftest")
+            got = not rep.ok()
+            intake_cases.append((label, got == want_reject,
+                                 rep.errors[0][:70] if rep.errors else "(no errors)"))
+    except Exception as e:                                     # noqa: BLE001
+        intake_cases.append((f"intake module unavailable → {type(e).__name__}", False, str(e)[:70]))
+
     passed = failed = 0
     for label, proj, want_rc in cases:
         try:
@@ -737,8 +823,18 @@ def selftest() -> int:
         passed += ok
         failed += (not ok)
         print(f"\nSELFTEST {'✓' if ok else '✗'} {label}  (exit {rc}, expected {want_rc})\n")
+    for label, ok, detail in intake_cases:
+        passed += ok
+        failed += (not ok)
+        print(f"\nSELFTEST {'✓' if ok else '✗'} {label}  [{detail}]\n")
+
     shutil.rmtree(base, ignore_errors=True)
-    print(f"SELFTEST RESULT: {passed}/{len(cases)} guards behaved correctly")
+    total = len(cases) + len(intake_cases)
+    # denominator must include the intake pairs; counting only `cases` printed a triumphant
+    # "15/8", which is the same class of bug the gates exist to catch — a number that looks
+    # like a pass and is actually a measurement error.
+    print(f"SELFTEST RESULT: {passed}/{total} guards behaved correctly"
+          f"{" — ALL PASS" if passed == total else f" — {failed} FAILED"}")
     return 0 if not failed else 1
 
 

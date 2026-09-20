@@ -68,6 +68,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", default="http://127.0.0.1:4180")
     ap.add_argument("--key", default="")
+    # Default to $STORYOS_HOME so the probe decision the suite writes is cleaned up by
+    # default. Run without it, the harness writes a test record into the LIVE ledger and then
+    # reports "could not clean them" — a self-test that leaves residue in canon is worse than
+    # no self-test, because the residue is indistinguishable from a real decision downstream.
     ap.add_argument("--home", default=os.environ.get("STORYOS_HOME", ""),
                     help="STORYOS_HOME, so probe decisions written through the API can be removed")
     a = ap.parse_args()
@@ -130,27 +134,39 @@ def main() -> int:
     # A test that leaves evidence in the project it is testing is a defective test: an
     # "auth test rule" once survived here and inflated the learned-rule count forever.
     if created and a.home:
+        leftovers = []
         for proj, did in created:
-            f = Path(a.home) / "projects" / proj / "decisions.jsonl"
-            if not f.exists():
-                continue
-            kept, dropped = [], 0
-            for line in f.read_text(encoding="utf-8").splitlines():
-                if not line.strip():
+            # The live ledger has lived at BOTH paths, and the writer picks one. Scrubbing
+            # only the prettier of the two is how a probe rule once survived into enforcement.
+            for f in [Path(a.home) / "projects" / proj / "decisions.jsonl",
+                      Path(a.home) / "projects" / proj / "state" / "decisions.jsonl"]:
+                if not f.exists():
                     continue
-                try:
-                    rec = json.loads(line)
-                except json.JSONDecodeError:
-                    kept.append(line); continue
-                if rec.get("id") == did and rec.get("what") == PROBE_MARK:
-                    dropped += 1
-                    continue
-                kept.append(line)
-            if dropped:
-                f.write_text("\n".join(kept) + "\n", encoding="utf-8")
-                c = f.parent / "locks" / f"{did}.card.md"
-                c.unlink(missing_ok=True)
-            print(f"  cleanup: {proj} — removed {dropped} probe decision(s) this run created")
+                kept, dropped = [], 0
+                for line in f.read_text(encoding="utf-8").splitlines():
+                    if not line.strip():
+                        continue
+                    try:
+                        rec = json.loads(line)
+                    except json.JSONDecodeError:
+                        kept.append(line); continue
+                    if rec.get("id") == did and rec.get("what") == PROBE_MARK:
+                        dropped += 1
+                        continue
+                    kept.append(line)
+                if dropped:
+                    f.write_text("\n".join(kept) + "\n", encoding="utf-8")
+                    c = f.parent / "locks" / f"{did}.card.md"
+                    c.unlink(missing_ok=True)
+                print(f"  cleanup: {proj} — removed {dropped} probe decision(s) this run created")
+            if any(did in (l or "") for p2 in [Path(a.home) / "projects" / proj / "decisions.jsonl",
+                                               Path(a.home) / "projects" / proj / "state" / "decisions.jsonl"]
+                   if p2.exists() for l in p2.read_text(encoding="utf-8").splitlines()):
+                leftovers.append(f"{proj}:{did}")
+        if leftovers:
+            fails.append(f"probe decision(s) survived cleanup: {', '.join(leftovers)} — "
+                         f"they are now ACTIVE learned rules; remove them by hand")
+            print(f"  FAIL  probe records survived cleanup: {leftovers}")
     elif created:
         print(f"  WARN: wrote {len(created)} probe decision(s) and could not clean them "
               f"(pass --home $STORYOS_HOME). Remove ids: "

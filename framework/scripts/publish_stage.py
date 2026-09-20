@@ -280,6 +280,7 @@ curl -s  <site>/api/gate/<project>    # the gate, re-run live (this is the autho
 |---|---|
 | `GET /` | portal, all projects, live gates |
 | `GET /agents.md`, `GET /report.md` | this file; build summary |
+| `GET /LAWS.md` | the adopted universal laws: authority order, twelve locks, pipeline, firewall states, leak paths |
 | `GET /api/manifest.json` | file index + checksums |
 | `GET /api/gate/<project>` | live gate JSON |
 | `GET /api/projects` | gate + growth per project (paths redacted) |
@@ -632,6 +633,15 @@ def build(out: Path, only: str | None) -> Path:
                                                     encoding="utf-8")
     except (OSError, json.JSONDecodeError):
         pass
+    # Adopted universal laws: an agent arriving here with nothing else most needs the
+    # authority ladder, because absent it, it invents precedence.
+    for extra in (HOME / "LAWS.md", REPO / "LAWS.md"):
+        if extra.exists():
+            try:
+                shutil.copy2(extra, out / "LAWS.md")
+            except OSError:
+                pass
+            break
     for src, dst in ((Path("/tmp/storyos_watchdog/pointer.txt"), out / "pointer.md"),):
         try:
             if src.exists():

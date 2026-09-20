@@ -1,6 +1,6 @@
 # StoryOS stage build report
 
-Generated 2026-09-19 · 2 project(s)
+Generated 2026-09-20 · 2 project(s)
 
 | project | gate | errors | locks | chars | firewalls | decisions | enforced |
 |---|---|---|---|---|---|---|---|

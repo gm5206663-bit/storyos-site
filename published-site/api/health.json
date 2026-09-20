@@ -1,15 +1,15 @@
 {
-  "checked_at": "2026-09-19T01:57:32",
-  "served_200": 0,
+  "checked_at": "2026-09-20T04:21:17",
+  "served_200": 6,
   "probes": 6,
-  "availability_pct": 0.0,
+  "availability_pct": 100.0,
   "edge_failures_530": 0,
-  "transport_failures": 6,
-  "longest_outage_s": 14,
+  "transport_failures": 0,
+  "longest_outage_s": 0,
   "connector": {
     "registered": 0,
     "lost_edge_events": 0
   },
-  "verdict": "DOWN_FOR_PROBES",
+  "verdict": "HEALTHY",
   "note": "public redacted view; origin status, host paths and the connector log are withheld. The human reads those from $STORYOS_HOME/health.json"
 }

@@ -1,0 +1,345 @@
+{
+  "schema": "storyos-laws/1",
+  "imported_from": "github:gm5206663-bit/the-universal-storyline-creation-@7da59a52 state/laws.json",
+  "imported_on": "2026-09-20",
+  "imported_by": "StoryOS agent, on the human's instruction to use everything on GitHub",
+  "status": "ADOPTED into the authority ladder at level 3 (kit laws). These are DATA for the validator and for agents; the human's explicit words and project locked documents still outrank them. Their selftest (102/102) passed as delivered, which is why they were accepted rather than re-derived.",
+  "laws": {
+    "_comment": "The portable authoring law. Applies to every project in this universe and to any project a new agent opens.",
+    "failure_modes": [
+      {
+        "n": 1,
+        "mode": "No canon spine",
+        "symptom": "The serial never asked what canon says happens in that forest. Canon says people hunt there for rings.",
+        "cure": "Name at least five canon beats the serial touches, before drafting."
+      },
+      {
+        "n": 2,
+        "mode": "Nothing contested",
+        "symptom": "No antagonist pressure. The protagonist was never wanted by anyone for anything.",
+        "cure": "Every chapter gets a threat and a named face."
+      },
+      {
+        "n": 3,
+        "mode": "No felt progression",
+        "symptom": "Rank and ring changes were asserted in panels but never earned on the page.",
+        "cure": "Ring gates are chapter rhythm, not decoration."
+      },
+      {
+        "n": 4,
+        "mode": "One register repeated",
+        "symptom": "Fifteen chapters in a single interior-meditation voice. Dialogue vanished from seven of them.",
+        "cure": "Five registers, at least three per chapter, counted not eyeballed."
+      },
+      {
+        "n": 5,
+        "mode": "Apparatus outgrew story",
+        "symptom": "Panels, ledgers and codex entries became the product; the story became the appendix.",
+        "cure": "Slim panel at top, no chapter footer, prose carries the weight."
+      }
+    ],
+    "pipeline": [
+      {
+        "n": 1,
+        "stage": "LOAD",
+        "detail": "Read the live edge and the locks",
+        "gate": false
+      },
+      {
+        "n": 2,
+        "stage": "VERIFY",
+        "detail": "Reconstruct canon scene by scene",
+        "gate": true
+      },
+      {
+        "n": 3,
+        "stage": "MAP",
+        "detail": "Timeline, location, prop, knowledge",
+        "gate": false
+      },
+      {
+        "n": 4,
+        "stage": "FORECAST",
+        "detail": "Butterfly effects from real changes",
+        "gate": false
+      },
+      {
+        "n": 5,
+        "stage": "BLUEPRINT",
+        "detail": "Beat order, registers, panel range",
+        "gate": false
+      },
+      {
+        "n": 6,
+        "stage": "DRAFT",
+        "detail": "Prose carries the chapter",
+        "gate": false
+      },
+      {
+        "n": 7,
+        "stage": "AUDIT",
+        "detail": "Run all seven hard gates",
+        "gate": true
+      },
+      {
+        "n": 8,
+        "stage": "REPAIR",
+        "detail": "Fix, then re-run the gates",
+        "gate": false
+      },
+      {
+        "n": 9,
+        "stage": "DELIVER",
+        "detail": "Ship the chapter",
+        "gate": false
+      },
+      {
+        "n": 10,
+        "stage": "RECORD",
+        "detail": "Update ledgers and the serial log",
+        "gate": false
+      }
+    ],
+    "predraft_gate": [
+      {
+        "n": 1,
+        "step": "Reconstruct",
+        "detail": "Rebuild the relevant canon scene by scene. Not from memory - from receipts. If a scene is missing, say it is missing."
+      },
+      {
+        "n": 2,
+        "step": "Verify exact detail",
+        "detail": "Event order, location, timing, positions, clothing, objects, environment, dialogue style, motivations, character knowledge."
+      },
+      {
+        "n": 3,
+        "step": "Build the ledgers",
+        "detail": "Timeline, location, prop, power and adaptation, knowledge - who knows what, and since when."
+      },
+      {
+        "n": 4,
+        "step": "Firewall",
+        "detail": "Hide information from characters who have not earned it. Author knowledge is never character knowledge. Check every speaking character against the registry."
+      },
+      {
+        "n": 5,
+        "step": "Resolve conflicts",
+        "detail": "Use the authority hierarchy. User words beat project docs beat kit laws. Record the resolution, not just the result."
+      },
+      {
+        "n": 6,
+        "step": "Then blueprint",
+        "detail": "Only now set beat order. Set the panel year range first. Then draft."
+      }
+    ],
+    "twelve_locks": [
+      {
+        "n": 1,
+        "lock": "ERA",
+        "question": "Which series, which years, which DC range"
+      },
+      {
+        "n": 2,
+        "lock": "PROTAGONIST",
+        "question": "Who they are - and explicitly what they are NOT"
+      },
+      {
+        "n": 3,
+        "lock": "CANON ENTRY",
+        "question": "The specific canon beats this serial touches. Name at least five."
+      },
+      {
+        "n": 4,
+        "lock": "SPINE",
+        "question": "Who wants what from the protagonist, and what they will do to get it"
+      },
+      {
+        "n": 5,
+        "lock": "POWER CEILING",
+        "question": "The strongest the OC becomes, and what they never get"
+      },
+      {
+        "n": 6,
+        "lock": "IDENTITY",
+        "question": "Public name versus true name; what the reveal costs"
+      },
+      {
+        "n": 7,
+        "lock": "ABSOLUTES",
+        "question": "What the protagonist will never do, ever"
+      },
+      {
+        "n": 8,
+        "lock": "CANON IMMUNITY",
+        "question": "Which canon characters' fates may not be rerouted"
+      },
+      {
+        "n": 9,
+        "lock": "MEASUREMENT",
+        "question": "How rank and rings are shown on the page"
+      },
+      {
+        "n": 10,
+        "lock": "VOICE",
+        "question": "POV, tense, register rules"
+      },
+      {
+        "n": 11,
+        "lock": "CADENCE",
+        "question": "Chapters per pass, words per chapter, when audits run"
+      },
+      {
+        "n": 12,
+        "lock": "HANDOFF",
+        "question": "What a fresh agent must read first"
+      }
+    ],
+    "lock_4_rule": "Write it as a full sentence with all three blanks filled: '______ wants ______ from my protagonist, and will ______ to get it.' If you cannot fill all three, there is no story yet - there is only a setting.",
+    "seven_gates": [
+      {
+        "n": 1,
+        "gate": "Zero unreadable script",
+        "why": "CJK, kana, hangul. Not a blanket non-ASCII ban - em dashes and box-drawing are fine.",
+        "scope": [
+          "chapters",
+          "templates",
+          "law",
+          "codex",
+          "audit"
+        ]
+      },
+      {
+        "n": 2,
+        "gate": "Zero literal backslash-n",
+        "why": "The two-character sequence leaking into prose from escaped strings. Use the real newline.",
+        "scope": [
+          "chapters",
+          "templates",
+          "law",
+          "codex",
+          "audit"
+        ]
+      },
+      {
+        "n": 3,
+        "gate": "Zero digits in prose",
+        "why": "Exact figures belong in panels and ledgers. Prose says 'seven', the panel says '7'.",
+        "scope": [
+          "chapters"
+        ]
+      },
+      {
+        "n": 4,
+        "gate": "At least three spoken dialogue lines",
+        "why": "Dialogue silently disappears from introspective serials. It went missing from seven of fifteen chapters in one rebuild and was only caught by counting. Count it; do not eyeball it.",
+        "scope": [
+          "chapters"
+        ]
+      },
+      {
+        "n": 5,
+        "gate": "Panels contiguous",
+        "why": "No overlap, no gap. Insertion and reordering desynchronise panels, and the drift is invisible until two chapters claim the same year.",
+        "scope": [
+          "chapters"
+        ]
+      },
+      {
+        "n": 6,
+        "gate": "No placeholder text",
+        "why": "No shipped file contains template slots or lorem-style filler.",
+        "scope": [
+          "chapters",
+          "codex"
+        ]
+      },
+      {
+        "n": 7,
+        "gate": "Marker discipline",
+        "why": "The book-end marker never appears in prose; at most one end card, opening with END OF, last in the file.",
+        "scope": [
+          "chapters"
+        ]
+      }
+    ],
+    "gate_scope_warning": "Gate 6 must never be applied to templates, law files, or audit logs. A template with no slot tokens is not a template. A law file that cannot show the panel format cannot teach it. An audit log reports on placeholder counts - a line reading 'TODO/FIXME/TBD = 0' is the log doing its job, not a leftover. Gates 1 and 2 are the only ones that apply everywhere, because they are the ones that indicate a file is broken rather than a file being what it is.",
+    "self_referential_trap": "A check must not match its own description. Five confirmed instances: a blanket non-ASCII gate flagging the em dashes in the prose law that explains the rule; a case-insensitive substring flagging 'placeholder' inside 'no placeholder text left'; gate 6 over templates flagging every slot token; gate 6 over an audit log flagging its own zero-count report; and documenting that last case inside the audit law re-tripping the same class. Scope the gate, do not reword the file.",
+    "negative_test_rule": "Ship the negative test with the gate. tools/selftest.py exists because verify.py once reported fifteen failures against a proven 33,100-word serial - every one of them a false positive. A gate nobody has tested is a guess.",
+    "firewall_states": [
+      {
+        "state": "KNOWN",
+        "meaning": "Verified knowledge",
+        "permits": "May act on it and speak of it"
+      },
+      {
+        "state": "KNOWN PARTLY",
+        "meaning": "Partial knowledge",
+        "permits": "May act on the part held; must not extend it by assumption"
+      },
+      {
+        "state": "SUSPICION",
+        "meaning": "Suspects, unproven",
+        "permits": "May worry, probe, deflect - may not state as fact"
+      },
+      {
+        "state": "DISBELIEF",
+        "meaning": "Actively rejects it",
+        "permits": "Needs direct proof to move; will rationalise anomalies first"
+      },
+      {
+        "state": "UNKNOWN",
+        "meaning": "No knowledge at all",
+        "permits": "Cannot reference it, hint at it, or intuit it"
+      },
+      {
+        "state": "FALSE BELIEF",
+        "meaning": "Believes something untrue",
+        "permits": "Acts on the false version; the truth must be earned on page"
+      },
+      {
+        "state": "HIDDEN",
+        "meaning": "Known by author, withheld",
+        "permits": "Declared but not yet used in any registry"
+      }
+    ],
+    "leak_paths": "Never convert suspicion, intuition, rumour, or prophecy fragments into factual character knowledge without evidence. Never give a character information earlier than the earliest valid change recorded in their firewall. Predetermined destiny does not pre-install personal memories or trust. Instinctive power control after an awakening does not equal encyclopaedic lore.",
+    "adaptation_talent": {
+      "is": "An innate, non-conscious, existence-level personal law or instinct belonging to the user's OC. It adapts from the complete current foundation.",
+      "is_not": [
+        "a UI",
+        "a voice",
+        "a reward system",
+        "a companion",
+        "an anomaly",
+        "a generic learning mechanic"
+      ],
+      "requirements": [
+        {
+          "req": "Compatible foundation",
+          "detail": "There must be something there to adapt. It cannot create power from absolute nothing."
+        },
+        {
+          "req": "Integration",
+          "detail": "The adaptation becomes part of the character, not a bolted-on ability."
+        },
+        {
+          "req": "Exposure",
+          "detail": "The character must actually encounter the thing being adapted to."
+        },
+        {
+          "req": "Consequences",
+          "detail": "Adaptation costs something and changes something. No free power."
+        }
+      ],
+      "primary_abuse": "Do not use this framework to justify a character knowing lore they have not learned. Adaptation is not a knowledge pipe. It changes what a character can do; it never installs what a character knows.",
+      "setting_bound": "Adaptation cannot bypass setting rules. It operates inside the setting's physics - it is not an exemption from them."
+    },
+    "authority_order": [
+      "The user's explicit words",
+      "Project locked documents",
+      "Kit laws",
+      "Kit canon spine",
+      "Earlier projects - craft only, never canon"
+    ]
+  }
+}

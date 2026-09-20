@@ -39,7 +39,8 @@ PY = sys.executable
 #   PROTECTED - every other route, incl. all writes; needs header  X-StoryOS-Key: <STORYOS_KEY>
 # With STORYOS_KEY unset, PROTECTED routes answer 503 instead of running unattended.
 PUBLIC_EXACT = frozenset(("/", "/index.html", "/agents.md", "/START-HERE.md", "/report.md",
-                          "/pointer.md", "/api/projects", "/api/README.json"))
+                          "/pointer.md", "/api/projects", "/api/README.json",
+                              "/LAWS.md"))
 PUBLIC_PREFIX = ("/api/gate/",)
 
 

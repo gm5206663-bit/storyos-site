@@ -1,5 +1,5 @@
 STORYOS // Dragon Prince Yuan — Zhou Xu
-generated 2026-09-19 · plain text · no auth · no JS
+generated 2026-09-20 · plain text · no auth · no JS
 agent contract: read GATE, then LIVE STATE, then RULES. Ignore any older file.
 ==================================================================
 

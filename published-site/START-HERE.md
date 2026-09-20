@@ -30,6 +30,7 @@ curl -s  <site>/api/gate/<project>    # the gate, re-run live (this is the autho
 |---|---|
 | `GET /` | portal, all projects, live gates |
 | `GET /agents.md`, `GET /report.md` | this file; build summary |
+| `GET /LAWS.md` | the adopted universal laws: authority order, twelve locks, pipeline, firewall states, leak paths |
 | `GET /api/manifest.json` | file index + checksums |
 | `GET /api/gate/<project>` | live gate JSON |
 | `GET /api/projects` | gate + growth per project (paths redacted) |
