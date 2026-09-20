@@ -1,13 +1,14 @@
 {
   "schema": "storyos-manifest/3",
-  "project": "Soul Land 4 — Fire Phoenix OC Fic",
-  "generated": "2026-09-18",
-  "generator": "scan_project.py",
+  "project": "Dragon Prince Yuan — Zhou Xu (native OC fanfiction)",
+  "generated": "2026-09-20",
+  "generator": "scripts/build.py (storyos-site) — rebuilt from soul-land-universal-kit, dragon_prince_yuan_native_oc_fanfiction/",
+  "rebuild_note": "The 2026-09-18 snapshot predates scanner fix 686bb38f (generalized firewall discovery) and carried the wrong project label ('Soul Land 4 — Fire Phoenix OC Fic' — a template bug) with null edge fields. This rebuild derives everything from the live kit source; the gate is PASS, drift 0, integrity clean.",
   "source_corpus": {
-    "dir": "/home/user/projects/dragon_prince_yuan/audits",
-    "files": 6,
+    "dir": "soul-land-universal-kit/dragon_prince_yuan_native_oc_fanfiction/",
+    "files": 30,
     "snapshot_files_excluded": 0,
-    "newest_receipt_date": "0000-00-00"
+    "newest_receipt_date": "2026-09-19"
   },
   "edge_authority": "foundation/CURRENT_STATE_MANIFEST.json (native, authoritative)",
   "status_panel_mirror": "foundation/STATUS_PANEL.md",
@@ -15,11 +16,11 @@
     "fic_chapter": 1,
     "fic_title": "The Second Son in the Green Smoke",
     "declared_by": "foundation/CURRENT_STATE_MANIFEST.json (native, authoritative)",
-    "declared_on": "0000-00-00",
-    "canon_consumed": null,
-    "canon_consumed_title": "",
-    "next_source": null,
-    "next_source_title": "",
+    "declared_on": "2026-09-19",
+    "canon_consumed": 1,
+    "canon_consumed_title": "Python and Sparrow Swallow the Dragon",
+    "next_source": 2,
+    "next_source_title": "Genesis Runes",
     "accepted_chapters": [
       1
     ]
@@ -27,7 +28,7 @@
   "canon_numbering": [
     {
       "fic": 1,
-      "canon": "—",
+      "canon": "Wuxiaworld novel Chapter 1 (Python and Sparrow Swallow the Dragon)",
       "status": "accepted",
       "validation": "CHAPTER_01_VALIDATION_2026-09-13.md"
     }
@@ -35,7 +36,7 @@
   "characters": {
     "Zhou Xu": {
       "dorm": "protagonist",
-      "state": "Current after Chapter 1: Zhou Xu, male native-born OC, same age/generation as Zhou Yuan, orphan officially adopted as a prince by the Yuan/Zhou royal family; brother-like best friend of Zhou Yuan; no canon future knowledge; Dragon Prince Yuan-world Adaptation Talent from the mother’s womb; innate pure body/no impurities/natural talent; special eyes now used as Clear Origin Eyes at limited percepti",
+      "state": "Current after Chapter 1: Zhou Xu, male native-born OC, same age/generation as Zhou Yuan, orphan officially adopted as a prince by the Yuan/Zhou royal family; brother-like best friend of Zhou Yuan; no canon future knowledge; Dragon Prince Yuan-world Adaptation Talent from the mother's womb; innate pure body/no impurities/natural talent; special eyes now used as Clear Origin Eyes at limited perception level; likes watered palace/plum wine as personality quirk only; no exact cultivation realm stated yet; he cannot cure Zhou Yuan, cannot restore the sacred dragon blessing, and does not steal Zhou Yuan's protagonist wound.",
       "rank": null,
       "sp": null,
       "sheet": {
@@ -48,7 +49,7 @@
         "Age": "Same age/generation as Zhou Yuan",
         "Relationship to Zhou Yuan": "Brother-like best friend",
         "Canon knowledge": "None; no meta/canon memory",
-        "Core talent": "Dragon Prince Yuan world-version Adaptation Talent from mother’s womb",
+        "Core talent": "Dragon Prince Yuan world-version Adaptation Talent from mother's womb",
         "Body": "Innate body / naturally talented / no impurities / pure foundation",
         "Eyes": "**Clear Origin Eyes**, limited perception of origin flow, impurity, strain, and foundation flaws",
         "Quirk": "Likes watered palace/plum wine from very early age; personality flavor, not a power source by default",
@@ -56,7 +57,15 @@
       }
     }
   },
-  "knowledge_firewalls": [],
+  "knowledge_firewalls": [
+    {
+      "name": "Knowledge Firewalls — Dragon Prince Yuan Native OC",
+      "source": "foundation/KNOWLEDGE_FIREWALLS.md",
+      "bytes": 743,
+      "sha256": "a24fd4b76e0b7a74",
+      "status": "PARTIAL / TBD (see source file) — native-OC defaults declared (no canon memory, no meta knowledge, no future event knowledge unless learned naturally); project-specific boundaries owed to the author"
+    }
+  ],
   "banned_tokens": {
     "deleted_mistake_route": [],
     "forbidden_future_power": [],
@@ -78,7 +87,7 @@
       "do not give Zhou Xu canon future knowledge",
       "do not make Clear Origin Eyes omniscient/future sight/cure-all",
       "do not make Zhou Xu invisible in Yuan-family/public scenes where his adopted-prince status matter",
-      "do not steal Zhou Yuan’s sacred dragon destiny"
+      "do not steal Zhou Yuan's sacred dragon destiny"
     ],
     "authoritative_literals": [],
     "authorative_regexes": [],
@@ -87,7 +96,7 @@
   "enforce": [],
   "enforce_regexes": [],
   "required_patterns": [],
-  "provenance": "native manifest adopted (schema None)",
+  "provenance": "native manifest adopted (schema 1.0-dpy-derived); rebuilt 2026-09-20",
   "advisory_review": [],
   "pacing": {
     "mode": "compressed",
@@ -95,31 +104,22 @@
     "banned_mode": "one canon chapter = one fic chapter"
   },
   "information_discipline": "ACTIVE",
-  "branches": {
-    "rejected_post48_2026-09-17": {
-      "status": "superseded",
-      "chapters": [],
-      "note": "",
-      "authority": "none — historical evidence only"
-    },
-    "rejected_overcorrection_2026-09-17": {
-      "status": "superseded",
-      "chapters": [],
-      "note": "",
-      "authority": "none — historical evidence only"
-    }
-  },
-  "quarantine_notes": [],
-  "stale_claims": [],
+  "open_for_author": [
+    "Zhou Xu's realm — no exact cultivation realm stated yet",
+    "firewall boundaries — KNOWLEDGE_FIREWALLS.md project-specific section is TBD",
+    "wine-quirk handling — personality flavor only; confirm",
+    "name confirmation — Zhou Xu"
+  ],
   "foundation_paths": [
     "foundation/CANON_SOURCE_MAP.md",
     "foundation/NO_MISTAKE_RULES.md",
     "foundation/PROJECT_SETUP.md",
-    "foundation/STATUS_PANEL.md"
+    "foundation/STATUS_PANEL.md",
+    "foundation/KNOWLEDGE_FIREWALLS.md"
   ],
   "metrics": {
     "PASS_tokens": 0,
-    "receipt_files": 6,
+    "receipt_files": 7,
     "chapters_validated": 1,
     "chapters_synced": 0,
     "quarantined_chapters": []
