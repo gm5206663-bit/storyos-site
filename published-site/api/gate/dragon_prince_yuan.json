@@ -1,0 +1,20 @@
+{
+  "project": "dragon_prince_yuan",
+  "result": "FAIL",
+  "errors": 1,
+  "warnings": 1,
+  "exit": 1,
+  "staged_prose_files": 1,
+  "live_edge_chapter": 1,
+  "stdout_tail": [
+    "STORYOS_VALIDATE: FAIL  (phase=full, errors=1, warnings=1)",
+    "  [FAIL] firewall-integrity: No knowledge firewalls in the audited state. Define them.",
+    "  [WARN] next-chapter-consistency: START_HERE.md implies Chapter1 is next, but live edge after Chapter1 makes Chapter2 next. Stale or superseded instruction.",
+    "         \u2192 Ignore for drafting; next chapter is Chapter2.",
+    "  [info] banned-tokens: No unambiguous regression tokens in the manifest \u2014 the drift guard cannot fire.",
+    "         \u2192 Re-run scan_project.py so enforce is populated from the project's own registry.",
+    "  NEXT CHAPTER: Chapter2  (source: ChapterNone )",
+    "  GATE: blocked \u2014 resolve errors before drafting"
+  ],
+  "generated_by": "publish_stage.emit_gate_report"
+}

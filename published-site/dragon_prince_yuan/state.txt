@@ -1,0 +1,51 @@
+STORYOS // Dragon Prince Yuan — Zhou Xu
+generated 2026-09-19 · plain text · no auth · no JS
+agent contract: read GATE, then LIVE STATE, then RULES. Ignore any older file.
+==================================================================
+
+GATE: FAIL  (errors=1, warnings=1, learned-rules-active=0)
+
+  - error: firewall-integrity: No knowledge firewalls in the audited state. Define them.
+  - warn: next-chapter-consistency: START_HERE.md implies Chapter1 is next, but live edge after Chapter1 makes Chapter2 next. Stale or superseded instruction.
+  - info: banned-tokens: No unambiguous regression tokens in the manifest — the drift guard cannot fire.
+
+LIVE STATE — trust this over any older file
+--------------------------------------------
+live edge            : after Chapter1 "The Second Son in the Green Smoke"
+next source chapter  : None 
+canon consumed       : None 
+authority            : foundation/CURRENT_STATE_MANIFEST.json (native, authoritative)
+fic chapters accepted: 1 (#1-#1)
+validated / synced   : 1 / 0
+quarantined fic      : []
+locks / characters   : 0 / 1   firewalls: none registered
+enforcement          : 0 banned literals, 0 banned patterns
+
+RULES OF ENGAGEMENT — binding
+--------------------------------------------
+1. Do not draft prose while GATE is FAIL.
+2. Missing canon is reported missing. Never invented, never smoothed over.
+3. Author knowledge is not character knowledge.
+4. A receipt older than the newest active-branch receipt is evidence, not live state.
+5. Do not overwrite the project's foundation/. Generated state lives beside it.
+6. Learn a correction -> make it enforcement, not a note.
+
+BINDING LEARNED RULES
+(none recorded yet)
+
+CHARACTER LOCKS — state at the live edge
+--------------------------------------------
+- Zhou Xu: Current after Chapter 1: Zhou Xu, male native-born OC, same age/generation as Zhou Yuan, orphan officially adopted as a prince by the Yuan/Zhou royal family; brother-like best friend of Zhou Yuan; no 
+
+KNOWLEDGE FIREWALLS — who may know what, not before when
+--------------------------------------------
+(none registered). A GAP, not permission to assume characters know nothing.
+
+BANNED VALUES (0 literals)
+--------------------------------------------
+(none)
+
+BANNED PATTERNS (0)
+--------------------------------------------
+
+END OF STATE. No chapter prose here by design — the human hands over prose.

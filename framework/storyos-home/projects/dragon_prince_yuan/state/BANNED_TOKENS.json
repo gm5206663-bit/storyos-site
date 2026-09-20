@@ -1,0 +1,13 @@
+{
+  "note": "regression tokens \u2014 grep chapters for these; any hit is a drift bug",
+  "generated": "2026-09-18",
+  "banned_tokens": {
+    "deleted_mistake_route": [],
+    "forbidden_future_power": [],
+    "forbidden_currentization": [],
+    "stale_stat_drift": [],
+    "authoritative_literals": [],
+    "authorative_regexes": [],
+    "authoritative_future_bans": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "read_order": [
+    "GET /api/health.json   measured \u2014 is the tunnel up right now?",
+    "GET /<project>/state.txt the state an agent must obey",
+    "GET /api/manifest.json  index + sha256 of every published file"
+  ],
+  "no_such_routes": [
+    "/health",
+    "/api",
+    "/api/state",
+    "/state"
+  ],
+  "if_this_url_fails": "a 530/1033 means the connector detached, not that state changed; fall back to the mirror paste named in /pointer.md",
+  "key_policy": "reads open; POST /api/learn and /api/scan require X-StoryOS-Key",
+  "generated": "2026-09-19T01:58:19"
+}

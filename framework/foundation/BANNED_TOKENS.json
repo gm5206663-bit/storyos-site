@@ -1,0 +1,47 @@
+{
+  "note": "regression tokens \u2014 grep chapters for these; any hit is a drift bug",
+  "generated": "2026-09-18",
+  "banned_tokens": {
+    "deleted_mistake_route": [
+      "Lan Platform",
+      "Lucky Wheel",
+      "Silver Edge",
+      "Spirit Ascension Platform"
+    ],
+    "forbidden_future_power": [
+      "Black Phoenix",
+      "Emerald Demon Bird",
+      "Eyed Colorful Feather Clan",
+      "Glacial Halcyon King",
+      "Golden Blue Demon Bird",
+      "Martial Soul True Body",
+      "Nirvana / true resurrection skill",
+      "Phoenix Domain",
+      "Phoenix God",
+      "Phoenix God authority",
+      "Ultimate Fire",
+      "Ultimate Spiritual",
+      "Ultimate Spiritual attribute",
+      "completed battle armor",
+      "invincible defense",
+      "perfect Ultimate Fire mastery",
+      "perfect combat flight mastery"
+    ],
+    "forbidden_currentization": [
+      "Dragon Queen",
+      "Emerald Demon Bird",
+      "Rainbow Dragon",
+      "Rainbow Dragon martial soul/rings/skills",
+      "Yan Shuo",
+      "Yan current fourth ring",
+      "public Yan Shuo'er reveal"
+    ],
+    "stale_stat_drift": [
+      "Dawn-Iron 2,040",
+      "Dawn-Iron 2,480",
+      "Dawnflame 1,120",
+      "Dawnflame 960",
+      "SP526"
+    ]
+  }
+}

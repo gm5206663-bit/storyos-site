@@ -1,0 +1,6 @@
+StoryOS gate — dragon_prince_yuan
+result: FAIL   errors=1 warnings=1 learned_rules=None
+live edge: after Chapter1
+
+Machine copy: api/gate/dragon_prince_yuan.json (also mirrored). Recompute with:
+  python3 storyos/tools/storyos_validate.py --project projects/dragon_prince_yuan --phase full

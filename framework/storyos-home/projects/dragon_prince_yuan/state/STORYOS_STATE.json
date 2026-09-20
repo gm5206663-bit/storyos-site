@@ -1,0 +1,136 @@
+{
+  "schema": "storyos-manifest/3",
+  "project": "Soul Land 4 — Fire Phoenix OC Fic",
+  "generated": "2026-09-18",
+  "generator": "scan_project.py",
+  "source_corpus": {
+    "dir": "/home/user/projects/dragon_prince_yuan/audits",
+    "files": 6,
+    "snapshot_files_excluded": 0,
+    "newest_receipt_date": "0000-00-00"
+  },
+  "edge_authority": "foundation/CURRENT_STATE_MANIFEST.json (native, authoritative)",
+  "status_panel_mirror": "foundation/STATUS_PANEL.md",
+  "edge": {
+    "fic_chapter": 1,
+    "fic_title": "The Second Son in the Green Smoke",
+    "declared_by": "foundation/CURRENT_STATE_MANIFEST.json (native, authoritative)",
+    "declared_on": "0000-00-00",
+    "canon_consumed": null,
+    "canon_consumed_title": "",
+    "next_source": null,
+    "next_source_title": "",
+    "accepted_chapters": [
+      1
+    ]
+  },
+  "canon_numbering": [
+    {
+      "fic": 1,
+      "canon": "—",
+      "status": "accepted",
+      "validation": "CHAPTER_01_VALIDATION_2026-09-13.md"
+    }
+  ],
+  "characters": {
+    "Zhou Xu": {
+      "dorm": "protagonist",
+      "state": "Current after Chapter 1: Zhou Xu, male native-born OC, same age/generation as Zhou Yuan, orphan officially adopted as a prince by the Yuan/Zhou royal family; brother-like best friend of Zhou Yuan; no canon future knowledge; Dragon Prince Yuan-world Adaptation Talent from the mother’s womb; innate pure body/no impurities/natural talent; special eyes now used as Clear Origin Eyes at limited percepti",
+      "rank": null,
+      "sp": null,
+      "sheet": {
+        "---": "---",
+        "Name": "**Zhou Xu**",
+        "Gender/pronouns": "Male / he",
+        "Type": "Native-born OC",
+        "Origin": "Great Zhou side",
+        "Family status": "Orphan officially adopted as prince by Yuan/Zhou royal family",
+        "Age": "Same age/generation as Zhou Yuan",
+        "Relationship to Zhou Yuan": "Brother-like best friend",
+        "Canon knowledge": "None; no meta/canon memory",
+        "Core talent": "Dragon Prince Yuan world-version Adaptation Talent from mother’s womb",
+        "Body": "Innate body / naturally talented / no impurities / pure foundation",
+        "Eyes": "**Clear Origin Eyes**, limited perception of origin flow, impurity, strain, and foundation flaws",
+        "Quirk": "Likes watered palace/plum wine from very early age; personality flavor, not a power source by default",
+        "Romance": "Natural only; do not force romance to happen or not happen"
+      }
+    }
+  },
+  "knowledge_firewalls": [],
+  "banned_tokens": {
+    "deleted_mistake_route": [],
+    "forbidden_future_power": [],
+    "forbidden_currentization": [],
+    "stale_stat_drift": [],
+    "authoritative_literals": [],
+    "authorative_regexes": [],
+    "authoritative_future_bans": []
+  },
+  "banned_sentences": {
+    "deleted_mistake_route": [],
+    "forbidden_future_power": [],
+    "forbidden_currentization": [],
+    "stale_stat_drift": [],
+    "banned_pacing": [
+      "do not copy Soul Land mechanics",
+      "do not cure Zhou Yuan early",
+      "do not force romance",
+      "do not give Zhou Xu canon future knowledge",
+      "do not make Clear Origin Eyes omniscient/future sight/cure-all",
+      "do not make Zhou Xu invisible in Yuan-family/public scenes where his adopted-prince status matter",
+      "do not steal Zhou Yuan’s sacred dragon destiny"
+    ],
+    "authoritative_literals": [],
+    "authorative_regexes": [],
+    "authoritative_future_bans": []
+  },
+  "enforce": [],
+  "enforce_regexes": [],
+  "required_patterns": [],
+  "provenance": "native manifest adopted (schema None)",
+  "advisory_review": [],
+  "pacing": {
+    "mode": "compressed",
+    "rule": "compress routine canon beats; expand only meaningful character/system/butterfly/relationship/tactical change",
+    "banned_mode": "one canon chapter = one fic chapter"
+  },
+  "information_discipline": "ACTIVE",
+  "branches": {
+    "rejected_post48_2026-09-17": {
+      "status": "superseded",
+      "chapters": [],
+      "note": "",
+      "authority": "none — historical evidence only"
+    },
+    "rejected_overcorrection_2026-09-17": {
+      "status": "superseded",
+      "chapters": [],
+      "note": "",
+      "authority": "none — historical evidence only"
+    }
+  },
+  "quarantine_notes": [],
+  "stale_claims": [],
+  "foundation_paths": [
+    "foundation/CANON_SOURCE_MAP.md",
+    "foundation/NO_MISTAKE_RULES.md",
+    "foundation/PROJECT_SETUP.md",
+    "foundation/STATUS_PANEL.md"
+  ],
+  "metrics": {
+    "PASS_tokens": 0,
+    "receipt_files": 6,
+    "chapters_validated": 1,
+    "chapters_synced": 0,
+    "quarantined_chapters": []
+  },
+  "learned": [],
+  "growth": {
+    "decisions_total": 0,
+    "decisions_active": 0,
+    "by_kind": {},
+    "enforceable": 0,
+    "locks_written": 0,
+    "last_decision_on": null
+  }
+}

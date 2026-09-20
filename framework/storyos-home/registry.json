@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "soul_land_4": {
+      "path": "/home/user/projects/soul_land_4",
+      "added": "2026-09-18",
+      "label": "Soul Land 4 \u2014 Fire Phoenix OC"
+    },
+    "dragon_prince_yuan": {
+      "path": "/home/user/projects/dragon_prince_yuan",
+      "added": "2026-09-18",
+      "label": "Dragon Prince Yuan \u2014 Zhou Xu"
+    }
+  },
+  "default": "soul_land_4"
+}
