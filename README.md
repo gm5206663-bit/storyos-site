@@ -1,4 +1,9 @@
 # StoryOS Site
+<p align="center">
+  <a href="https://gm5206663-bit.github.io/storyos-site/"><img src="https://img.shields.io/badge/site-live-brightgreen?style=flat-square" alt="Live site"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="MIT"></a>
+</p>
+
 
 Everything about your projects and your agents, on one host. Built so that a **new agent
 can arrive knowing nothing** and still get the live edge, the locks, the firewalls, the
