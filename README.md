@@ -18,6 +18,9 @@ data/                generated. index.json, state/, chapters/, vault/, issues.js
 
 ## Run it
 
+A published snapshot is **live on GitHub Pages**: https://gm5206663-bit.github.io/storyos-site/
+(served from the `gh-pages` branch, cut from `published-site/` — regenerate it when you publish.)
+
 ```bash
 python3 scripts/build.py --root /home/user/project/workspace-HANDOFF.md
 PORT=8080 python3 scripts/server.py
