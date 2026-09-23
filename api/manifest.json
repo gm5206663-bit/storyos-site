@@ -1,0 +1,466 @@
+{
+  "generated": "2026-09-20T04:22:34",
+  "system": "storyos",
+  "schema": "storyos-site/1",
+  "agent_entrypoint": "agents.md",
+  "projects": {
+    "soul_land_4": {
+      "label": "Soul Land 4 \u2014 Fire Phoenix OC",
+      "gate": "PASS",
+      "errors": 0,
+      "warnings": 0,
+      "live_edge": {
+        "fic_chapter": 52,
+        "fic_title": "Amiable Beasts",
+        "next_source": 178
+      },
+      "counts": {
+        "locks": 38,
+        "decisions": 2,
+        "characters": 9,
+        "firewalls": 9,
+        "banned_literals": 24,
+        "banned_patterns": 7
+      },
+      "files": {
+        "soul_land_4/chapters/Chapter_01.md": {
+          "bytes": 27549,
+          "sha256": "66737be2e7c91975"
+        },
+        "soul_land_4/chapters/Chapter_02.md": {
+          "bytes": 24386,
+          "sha256": "90b506befeca990d"
+        },
+        "soul_land_4/chapters/Chapter_03.md": {
+          "bytes": 22275,
+          "sha256": "35deabdc2c79c881"
+        },
+        "soul_land_4/chapters/Chapter_04.md": {
+          "bytes": 25483,
+          "sha256": "835eb474b29ca7fe"
+        },
+        "soul_land_4/chapters/Chapter_05.md": {
+          "bytes": 40985,
+          "sha256": "29c2ad97afbe2370"
+        },
+        "soul_land_4/chapters/Chapter_06.md": {
+          "bytes": 39928,
+          "sha256": "2b0385232f2b1da8"
+        },
+        "soul_land_4/chapters/Chapter_07.md": {
+          "bytes": 40351,
+          "sha256": "6e2a8a4a08c4d79e"
+        },
+        "soul_land_4/chapters/Chapter_08.md": {
+          "bytes": 42728,
+          "sha256": "fe99f7f316a7de04"
+        },
+        "soul_land_4/chapters/Chapter_09.md": {
+          "bytes": 36758,
+          "sha256": "e25d390693bffad1"
+        },
+        "soul_land_4/chapters/Chapter_10.md": {
+          "bytes": 36213,
+          "sha256": "360706c021f811ac"
+        },
+        "soul_land_4/chapters/Chapter_11.md": {
+          "bytes": 44442,
+          "sha256": "aeb8b00e8f8458da"
+        },
+        "soul_land_4/chapters/Chapter_12.md": {
+          "bytes": 36990,
+          "sha256": "6fe8c939238ab83d"
+        },
+        "soul_land_4/chapters/Chapter_13.md": {
+          "bytes": 33402,
+          "sha256": "abac35e3a11865dd"
+        },
+        "soul_land_4/chapters/Chapter_14.md": {
+          "bytes": 28811,
+          "sha256": "19e4bd782a6e4443"
+        },
+        "soul_land_4/chapters/Chapter_15.md": {
+          "bytes": 28363,
+          "sha256": "b69d48926112d1cb"
+        },
+        "soul_land_4/chapters/Chapter_16.md": {
+          "bytes": 35491,
+          "sha256": "821ae4a77a1664a0"
+        },
+        "soul_land_4/chapters/Chapter_17.md": {
+          "bytes": 35166,
+          "sha256": "80348286f59c2a03"
+        },
+        "soul_land_4/chapters/Chapter_18.md": {
+          "bytes": 37160,
+          "sha256": "f6b585d5fdac5cc8"
+        },
+        "soul_land_4/chapters/Chapter_19.md": {
+          "bytes": 42456,
+          "sha256": "574676e658915138"
+        },
+        "soul_land_4/chapters/Chapter_20.md": {
+          "bytes": 35664,
+          "sha256": "0afbd7634b5ac308"
+        },
+        "soul_land_4/chapters/Chapter_21.md": {
+          "bytes": 40770,
+          "sha256": "e30f11e9d33417e8"
+        },
+        "soul_land_4/chapters/Chapter_22.md": {
+          "bytes": 36434,
+          "sha256": "e386346902d793bd"
+        },
+        "soul_land_4/chapters/Chapter_23.md": {
+          "bytes": 38504,
+          "sha256": "b3efae7e8a81f7fc"
+        },
+        "soul_land_4/chapters/Chapter_24.md": {
+          "bytes": 36409,
+          "sha256": "00e97cec3116b400"
+        },
+        "soul_land_4/chapters/Chapter_25.md": {
+          "bytes": 57564,
+          "sha256": "e9d300cf8ee0fe5f"
+        },
+        "soul_land_4/chapters/Chapter_26.md": {
+          "bytes": 42544,
+          "sha256": "bc0f9e833bca6674"
+        },
+        "soul_land_4/chapters/Chapter_27.md": {
+          "bytes": 25979,
+          "sha256": "97a01d429c5c5d6d"
+        },
+        "soul_land_4/chapters/Chapter_28.md": {
+          "bytes": 34004,
+          "sha256": "1d6581588c959898"
+        },
+        "soul_land_4/chapters/Chapter_29.md": {
+          "bytes": 29655,
+          "sha256": "437d1b57ab9e0366"
+        },
+        "soul_land_4/chapters/Chapter_30.md": {
+          "bytes": 47204,
+          "sha256": "ed0a13c739b3a76a"
+        },
+        "soul_land_4/chapters/Chapter_31.md": {
+          "bytes": 36001,
+          "sha256": "45c0ad407eb2d3d7"
+        },
+        "soul_land_4/chapters/Chapter_32.md": {
+          "bytes": 30816,
+          "sha256": "230553ded5dc56d0"
+        },
+        "soul_land_4/chapters/Chapter_33.md": {
+          "bytes": 31011,
+          "sha256": "d4747a777b2a78ae"
+        },
+        "soul_land_4/chapters/Chapter_34.md": {
+          "bytes": 36257,
+          "sha256": "dd0796835876077d"
+        },
+        "soul_land_4/chapters/Chapter_35.md": {
+          "bytes": 35872,
+          "sha256": "37c570fdb5ffe10f"
+        },
+        "soul_land_4/chapters/Chapter_36.md": {
+          "bytes": 36501,
+          "sha256": "7d01704ec7cef672"
+        },
+        "soul_land_4/chapters/Chapter_37.md": {
+          "bytes": 39183,
+          "sha256": "711b730b63b3df17"
+        },
+        "soul_land_4/chapters/Chapter_38.md": {
+          "bytes": 42274,
+          "sha256": "b6edcdbd53352a5d"
+        },
+        "soul_land_4/chapters/Chapter_39.md": {
+          "bytes": 53167,
+          "sha256": "8a7877ff4b80cc50"
+        },
+        "soul_land_4/chapters/Chapter_40.md": {
+          "bytes": 40332,
+          "sha256": "c0d468742fdeb091"
+        },
+        "soul_land_4/chapters/Chapter_41.md": {
+          "bytes": 39268,
+          "sha256": "e41c559b5fa720d5"
+        },
+        "soul_land_4/chapters/Chapter_42.md": {
+          "bytes": 30500,
+          "sha256": "788caaf63acedabb"
+        },
+        "soul_land_4/chapters/Chapter_43.md": {
+          "bytes": 44033,
+          "sha256": "ef4d707ba6310081"
+        },
+        "soul_land_4/chapters/Chapter_44.md": {
+          "bytes": 43699,
+          "sha256": "bdb68d3630d97197"
+        },
+        "soul_land_4/chapters/Chapter_45.md": {
+          "bytes": 42377,
+          "sha256": "830fbfb63685b51e"
+        },
+        "soul_land_4/chapters/Chapter_46.md": {
+          "bytes": 36401,
+          "sha256": "1dbf5a48212d9fec"
+        },
+        "soul_land_4/chapters/Chapter_47.md": {
+          "bytes": 17296,
+          "sha256": "ea675f91fc03c8b0"
+        },
+        "soul_land_4/chapters/Chapter_48.md": {
+          "bytes": 12507,
+          "sha256": "1da7cc509f1520e3"
+        },
+        "soul_land_4/chapters/Chapter_49.md": {
+          "bytes": 16339,
+          "sha256": "afcb3e46fe961a62"
+        },
+        "soul_land_4/chapters/Chapter_50.md": {
+          "bytes": 15140,
+          "sha256": "799e0b4d60a397b9"
+        },
+        "soul_land_4/chapters/Chapter_51.md": {
+          "bytes": 14757,
+          "sha256": "9a91b4a92330de9b"
+        },
+        "soul_land_4/chapters/Chapter_52.md": {
+          "bytes": 20239,
+          "sha256": "6a11561668626e38"
+        },
+        "soul_land_4/chapters/README.txt": {
+          "bytes": 247,
+          "sha256": "7d500a81596d4c6a"
+        },
+        "soul_land_4/decisions.jsonl": {
+          "bytes": 977,
+          "sha256": "eb64a9e2f6012d53"
+        },
+        "soul_land_4/decisions.md": {
+          "bytes": 547,
+          "sha256": "3d4d8b227f6d0066"
+        },
+        "soul_land_4/index.html": {
+          "bytes": 14010,
+          "sha256": "c40cdf2d7389bd2c"
+        },
+        "soul_land_4/locks/0-current-power-safety-lock-2026-09-12.card.md": {
+          "bytes": 488,
+          "sha256": "de883b00378896bc"
+        },
+        "soul_land_4/locks/1-current-live-lock-verified-2026-09-12.card.md": {
+          "bytes": 443,
+          "sha256": "d2824fce83c2b9f3"
+        },
+        "soul_land_4/locks/13-next-step-lock-2026-09-13.card.md": {
+          "bytes": 388,
+          "sha256": "3ebd63197521578c"
+        },
+        "soul_land_4/locks/2-current-lock-after-chapter-26-2026-09-13.card.md": {
+          "bytes": 583,
+          "sha256": "418af012bdd045d8"
+        },
+        "soul_land_4/locks/2-current-lock-confirmed-2026-09-13.card.md": {
+          "bytes": 397,
+          "sha256": "b57d13df87b5d2c2"
+        },
+        "soul_land_4/locks/2-new-refined-controlling-lock-file-2026-09-15.card.md": {
+          "bytes": 465,
+          "sha256": "e8c4ac34d2034d52"
+        },
+        "soul_land_4/locks/3-rainbow-dragon-ring-plan-now-locked-2026-09-15.card.md": {
+          "bytes": 466,
+          "sha256": "c24cf3686f302a9e"
+        },
+        "soul_land_4/locks/3-yan-shuo-dorm-336-locks-after-chapter-21-2026-09-11.card.md": {
+          "bytes": 483,
+          "sha256": "be7928582ea7da70"
+        },
+        "soul_land_4/locks/4-category-locks-2026-09-11.card.md": {
+          "bytes": 735,
+          "sha256": "485de7262b76c3d8"
+        },
+        "soul_land_4/locks/4-chapter-16-readiness-lock-2026-09-11.card.md": {
+          "bytes": 538,
+          "sha256": "5d0b7c35f6258c27"
+        },
+        "soul_land_4/locks/4-current-character-status-locks-after-sync-2026-09-16.card.md": {
+          "bytes": 496,
+          "sha256": "3f251ac74171e15c"
+        },
+        "soul_land_4/locks/4-current-lock-after-consolidation-2026-09-12.card.md": {
+          "bytes": 415,
+          "sha256": "9828646a46cc4885"
+        },
+        "soul_land_4/locks/4-current-locks-remain-2026-09-15.card.md": {
+          "bytes": 439,
+          "sha256": "d62ae449a307f0f4"
+        },
+        "soul_land_4/locks/4-current-yan-shuo-lock-after-chapter-17-2026-09-11.card.md": {
+          "bytes": 499,
+          "sha256": "b7297cb11a759fa7"
+        },
+        "soul_land_4/locks/4-firewall-locks-preserved-2026-09-13.card.md": {
+          "bytes": 425,
+          "sha256": "909a6a14c3d589b6"
+        },
+        "soul_land_4/locks/4-future-fire-phoenix-fifth-sixth-ring-plan-now-lock-2026-09-15.card.md": {
+          "bytes": 476,
+          "sha256": "32a0ff5845daca34"
+        },
+        "soul_land_4/locks/5-current-locks-remain-2026-09-15.card.md": {
+          "bytes": 416,
+          "sha256": "70d3832f5002edf6"
+        },
+        "soul_land_4/locks/5-current-power-future-route-lock-validation-2026-09-15.card.md": {
+          "bytes": 451,
+          "sha256": "c167853b429dcd0d"
+        },
+        "soul_land_4/locks/5-current-status-lock-2026-09-15.card.md": {
+          "bytes": 461,
+          "sha256": "8f5fdce912d47532"
+        },
+        "soul_land_4/locks/6-current-chapter45-locks-remain-2026-09-15.card.md": {
+          "bytes": 445,
+          "sha256": "b2315b88e4506576"
+        },
+        "soul_land_4/locks/6-current-locked-state-after-chapter49-2026-09-16.card.md": {
+          "bytes": 544,
+          "sha256": "f97ba5c41747daad"
+        },
+        "soul_land_4/locks/6-future-route-locks-preserved-2026-09-16.card.md": {
+          "bytes": 456,
+          "sha256": "62bcc11fea55c248"
+        },
+        "soul_land_4/locks/6-latest-future-route-locks-integrated-2026-09-15.card.md": {
+          "bytes": 465,
+          "sha256": "39f9c40a726000eb"
+        },
+        "soul_land_4/locks/7-current-locked-story-state-2026-09-16.card.md": {
+          "bytes": 448,
+          "sha256": "db3e64e95123d252"
+        },
+        "soul_land_4/locks/7-future-ring-soul-spirit-plan-locked-2026-09-15.card.md": {
+          "bytes": 490,
+          "sha256": "122f34a78e14cb9e"
+        },
+        "soul_land_4/locks/7-future-route-locks-preserved-2026-09-15.card.md": {
+          "bytes": 424,
+          "sha256": "76e721427421a0c0"
+        },
+        "soul_land_4/locks/8-open-questions-for-later-not-blocking-chapter45-2026-09-15.card.md": {
+          "bytes": 483,
+          "sha256": "8a1a04b1ed74e922"
+        },
+        "soul_land_4/locks/corrected-yan-shuo-lock-after-later-power-progress-r-2026-09-11.card.md": {
+          "bytes": 515,
+          "sha256": "bad5d54af2435f35"
+        },
+        "soul_land_4/locks/current-exact-locks-after-recheck-2026-09-13.card.md": {
+          "bytes": 443,
+          "sha256": "2290540dc8d887b5"
+        },
+        "soul_land_4/locks/current-yan-shuo-live-lock-after-chapter-19-2026-09-11.card.md": {
+          "bytes": 454,
+          "sha256": "5e74e225fcf77be6"
+        },
+        "soul_land_4/locks/future-event-lock-updated-2026-09-13.card.md": {
+          "bytes": 971,
+          "sha256": "da07a9cfe4af9914"
+        },
+        "soul_land_4/locks/lan-yan-romance-lock-2026-09-13-2026-09-13.card.md": {
+          "bytes": 412,
+          "sha256": "83ad933e0a095c3a"
+        },
+        "soul_land_4/locks/level30-cocoon-metamorphosis-lock-2026-09-13-2026-09-13.card.md": {
+          "bytes": 457,
+          "sha256": "31f8ebec3d83263b"
+        },
+        "soul_land_4/locks/mechanical-lock-confirmed-2026-09-11.card.md": {
+          "bytes": 444,
+          "sha256": "c3a877cdc5ce842e"
+        },
+        "soul_land_4/locks/mistake-a-narrow-scans-missed-stale-active-support-b-2026-09-17.card.md": {
+          "bytes": 584,
+          "sha256": "edaa718fe1bffb65"
+        },
+        "soul_land_4/locks/mistake-e-date-discipline-needed-explicit-locking-2026-09-17.card.md": {
+          "bytes": 599,
+          "sha256": "362ca3ec0e8a4fa9"
+        },
+        "soul_land_4/locks/stage-list-now-locked-2026-09-13.card.md": {
+          "bytes": 543,
+          "sha256": "f6ed8d81f68bf33f"
+        },
+        "soul_land_4/locks/yan-shuo-route-lock-2026-09-11.card.md": {
+          "bytes": 414,
+          "sha256": "173a1abe88219ab6"
+        },
+        "soul_land_4/rules.md": {
+          "bytes": 3312,
+          "sha256": "710d8757aecb5029"
+        },
+        "soul_land_4/state.json": {
+          "bytes": 25041,
+          "sha256": "baf20d6a5f6bae92"
+        },
+        "soul_land_4/state.txt": {
+          "bytes": 8370,
+          "sha256": "8e49fb60425bd64c"
+        }
+      }
+    },
+    "dragon_prince_yuan": {
+      "label": "Dragon Prince Yuan \u2014 Zhou Xu",
+      "gate": "FAIL",
+      "errors": 1,
+      "warnings": 1,
+      "live_edge": {
+        "fic_chapter": 1,
+        "fic_title": "The Second Son in the Green Smoke",
+        "next_source": null
+      },
+      "counts": {
+        "locks": 0,
+        "decisions": 0,
+        "characters": 1,
+        "firewalls": 0,
+        "banned_literals": 0,
+        "banned_patterns": 0
+      },
+      "files": {
+        "dragon_prince_yuan/chapters/Chapter_01.md": {
+          "bytes": 23640,
+          "sha256": "b19caec24571625c"
+        },
+        "dragon_prince_yuan/chapters/README.txt": {
+          "bytes": 245,
+          "sha256": "412e7acb5d450e94"
+        },
+        "dragon_prince_yuan/decisions.md": {
+          "bytes": 308,
+          "sha256": "50f9416403157cd9"
+        },
+        "dragon_prince_yuan/index.html": {
+          "bytes": 5375,
+          "sha256": "0e6f068616640da3"
+        },
+        "dragon_prince_yuan/rules.md": {
+          "bytes": 309,
+          "sha256": "08af2f15f8557d67"
+        },
+        "dragon_prince_yuan/state.json": {
+          "bytes": 4795,
+          "sha256": "0ac61cbf1d3c2ce4"
+        },
+        "dragon_prince_yuan/state.txt": {
+          "bytes": 2392,
+          "sha256": "95ff87caf6b475a5"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+StoryOS gate — dragon_prince_yuan
+result: PASS   errors=0 warnings=0 learned_rules=None
+live edge: after Chapter1
+
+REBUILT 2026-09-20 — the previously published FAIL was a stale verdict. That
+snapshot (generated 2026-09-18) predates the scanner fix that generalized
+firewall discovery beyond hardcoded SL4 filenames (686bb38f); under the old
+scanner the project's firewalls — declared in foundation/KNOWLEDGE_FIREWALLS.md
+— read as zero. Re-derived 2026-09-20 from the live source
+(soul-land-universal-kit, dragon_prince_yuan_native_oc_fanfiction/): 1
+registered firewall (status 'PARTIAL / TBD (see source file)' — native-OC
+defaults declared; project-specific boundaries owed to the author), drift 0,
+integrity clean.
+
+  - [PASS] firewall-integrity — foundation/KNOWLEDGE_FIREWALLS.md registered
+  - [PASS] next-chapter-consistency — stale START_HERE header marked superseded
+    2026-09-19 (6beddd8); next chapter is Chapter2
+  - [info] banned-tokens — no unambiguous regression tokens in the manifest;
+    the drift guard cannot fire (known gap, unchanged)
+  - NEXT CHAPTER: Chapter2 (source: canon ch 2 "Genesis Runes" — unfetched;
+    Ch2 blocked on the fetch per the project's own lock)
+  - GATE: open — drafting permitted
+
+Machine copy: api/gate/dragon_prince_yuan.json (also mirrored). Recompute with:
+  python3 scripts/build.py --root <workspace containing the project>
