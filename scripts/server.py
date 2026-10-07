@@ -620,7 +620,7 @@ class Handler(BaseHTTPRequestHandler):
             if not self.authed():
                 audit(f"POST /api/{head}", "denied: bad or missing key", self.client(), False)
                 return self.send_json({"ok": False, "error":
-                                       "401 invalid or missing X-StoryOS-Key"}, 401)
+                                       "401 invalid or missing key — see /agents.md for the contract"}, 401)
 
             if head == "learn" and rest:
                 pid = rest[0]
