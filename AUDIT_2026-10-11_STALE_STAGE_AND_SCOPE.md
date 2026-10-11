@@ -169,3 +169,44 @@ or a 106-issue flood, and will reasonably conclude the gate is broken.
 ---
 
 *Written 2026-10-11. Add-only: no file published, regenerated, or edited.*
+
+---
+
+## UPDATE — later the same day, after the whole-account sweep
+
+Two more things were found, and both are repaired in this commit.
+
+**1. The scope defect in `verify_stage.py` was worse than recorded above.**
+The default stage path was `Path.cwd()/"storyos-site"`, which resolves only
+when the script is run from the parent of the repository. Run from anywhere
+else, `rglob()` over a missing directory yields nothing: **0 files checked**,
+and the run reported `FAIL` only because `agents.md` happened to be absent. Had
+`agents.md` existed, it would have printed **`PASS (0 files checked)`**.
+
+Repaired: the stage resolves against the repository the script lives in, a
+missing stage is refused by name, **0 files checked is a hard failure**, and
+every run prints:
+`COVERAGE: published-site — 121 files checked · 2 stage(s) with state.txt`.
+
+**2. Why the drift could never be caught or fixed from here.**
+`publish_stage.py` builds each stage from the project named in
+`framework/storyos-home/registry.json`:
+
+| project | registry path | exists? |
+|---|---|---|
+| `soul_land_4` | `/home/user/projects/soul_land_4` | **no** |
+| `dragon_prince_yuan` | `/home/user/projects/dragon_prince_yuan` | **no** |
+
+Neither source is in any repository of this account. Run against those
+registry entries, `publish_stage.py` **built a stage with 0 of the 52 chapters
+and reported `stage built: 57 files`** — success, covering nothing.
+
+Repaired: a missing source now stops the build by name —
+`SCOPE FAIL — the source for 'soul_land_4' is not here … Nothing was built. A
+stage cannot be traced to a source that is absent.`
+
+**Still open, and it is the author's call:** the published
+`dragon_prince_yuan` stage remains 5,375 bytes out of date with its own
+manifest and still claims `GATE: PASS` while missing `RULES OF ENGAGEMENT`.
+It cannot be rebuilt from inside this account. `verify_stage.py` now reports
+the four real failures instead of hiding them behind a zero.

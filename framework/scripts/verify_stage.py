@@ -2,8 +2,28 @@
 """verify_stage.py — the site must not leak prose, must stay self-consistent, must be static."""
 import json, re, sys
 from pathlib import Path
-out = Path(sys.argv[1] if len(sys.argv) > 1 else Path.cwd() / "storyos-site")
+
+# SCOPE (repaired 2026-10-11). The default used to be Path.cwd()/"storyos-site",
+# which exists only when the script is run from the parent of the repo. Run from
+# anywhere else, rglob() over a missing directory yields nothing, silently:
+# `checked == 0`, and the run would report PASS unless some unrelated file
+# happened to be missing. That is the Scope Law in its purest form — a check
+# that read nothing, reporting. Now the stage is resolved against the repo the
+# script lives in, a missing stage is a failure, and nothing checked is a
+# failure. See AUDIT_2026-10-11_STALE_STAGE_AND_SCOPE.md.
+ROOT = Path(__file__).resolve().parents[2]          # …/storyos-site
+if len(sys.argv) > 1:
+    out = Path(sys.argv[1]).resolve()
+elif (ROOT / "published-site").is_dir():
+    out = (ROOT / "published-site").resolve()
+else:
+    out = (Path.cwd() / "storyos-site").resolve()
 fail, checked = [], 0
+
+if not out.is_dir():
+    print(f"VERIFY_STAGE: FAIL — the stage {out} does not exist. Nothing was read; "
+          f"nothing is verified. Pass the stage path as an argument.")
+    sys.exit(1)
 PROSE_MARKERS = re.compile(
     r"(He said to her|she whispered|His eyes narrowed|The crowd gasped|suddenly, |"
     r"Chapter \d+ continues|end of chapter)", re.I)
@@ -84,6 +104,20 @@ for doc in law_docs:
             fail.append(f"{doc.relative_to(out)}: footer says source sha256 {rec}… but the law file on "
                     f"disk hashes differently — the published laws drifted from their source "
                     f"(regenerate; never hand-edit)")
+# ── COVERAGE — say what was actually read, and refuse to pass on an empty scope.
+stages = sorted(p.name for p in out.iterdir() if p.is_dir() and (p / "state.txt").exists())
+no_state = sorted(p.name for p in out.iterdir()
+                  if p.is_dir() and p.name != "api" and not (p / "state.txt").exists())
+if checked == 0:
+    fail.append("0 files checked — a check that executes nothing verifies nothing "
+                f"(stage {out} exists but holds nothing to read)")
+for s in no_state:
+    fail.append(f"stage '{s}' has no state.txt — the receiving agent cannot tell "
+                f"whether drafting is allowed there")
+print(f"COVERAGE: {out.name} — {checked} files checked · {len(stages)} stage(s) with state.txt"
+      + (f": {', '.join(stages)}" if stages else "")
+      + (f" · {len(no_state)} dir(s) without state.txt: {', '.join(no_state)}" if no_state else ""))
+
 print(f"VERIFY_STAGE: {'FAIL' if fail else 'PASS'} ({checked} files checked, {len(fail)} issues)")
 for x in fail[:25]:
     print("  [FAIL]", x)

@@ -93,6 +93,17 @@ def load(name: str) -> dict:
     proj = Path(entry["path"])
     if not proj.is_absolute():
         proj = (Path.cwd() / proj).resolve()
+    # SCOPE LAW (2026-10-11). The registry names the project each stage is built
+    # FROM. When that project is absent the build used to continue and report
+    # success — it produced a stage with 0 of the chapters and said
+    # "stage built: 57 files". That is how dragon_prince_yuan drifted from its
+    # own manifest with nothing able to rebuild or check it.
+    if not proj.is_dir():
+        raise SystemExit(
+            f"publish_stage: SCOPE FAIL — the source for '{name}' is not here.\n"
+            f"  registry says: {proj}\n"
+            f"  registry:      {HOME / 'registry.json'}\n"
+            f"  Nothing was built. A stage cannot be traced to a source that is absent.")
     sd = HOME / "projects" / name / "state"
     st_f = sd / "STORYOS_STATE.json"
     if not st_f.exists():
