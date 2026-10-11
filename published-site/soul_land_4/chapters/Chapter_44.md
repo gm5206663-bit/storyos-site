@@ -496,7 +496,7 @@ Shrek did not ignore monsters.
 
 It also did not worship them.
 
-The assessment projection facing Yan Shuo, Song Yichen, and Luo Haoran carried Ling Yiyi's outline, but its eyes had the smooth depth of a recording array. It had listened to their route report already: Luo's thermal seam and impact reading, Song's shield anchoring, Yan's restrained Fire Phoenix heat-balance, the controlled true Fire Phoenix pressure that bent back inferior fire and disrupted the Scarlet Dragons' flame rhythm, the decision not to abandon formation for solo scoring when the Dragons weakened, and the final red-door escape when the false geothermal current changed.
+The assessment projection facing Yan Shuo, Song Yichen, and Luo Haoran carried Ling Yiyi's outline, but its eyes had the smooth depth of a recording array. It had listened to their route report already: Luo's thermal seam and impact reading, Song's shield anchoring, Yan's restrained Fire Phoenix heat-balance. The controlled true Fire Phoenix pressure that bent back inferior fire and disrupted the Scarlet Dragons' flame rhythm, the decision not to abandon formation for solo scoring when the Dragons weakened, and the final red-door escape when the false geothermal current changed.
 
 Then the projection stopped asking about the route.
 

@@ -642,7 +642,7 @@ Not to the third ring.
 
 Not to power.
 
-To everything that had brought Yan Shuo'er here: a public name chosen to survive, a first soul spirit that should have been ordinary and refused, a second soul spirit that gave bone to a sky dream, a dorm room where two teammates put their hands on a formation map, a boy in a corridor lending a blue cord so she would have to return it.
+To everything that had brought Yan Shuo'er here: a public name chosen to survive, a first soul spirit that should have been ordinary and refused. A second soul spirit that gave bone to a sky dream, a dorm room where two teammates put their hands on a formation map, a boy in a corridor lending a blue cord so she would have to return it.
 
 Yan stepped to the center of the array.
 

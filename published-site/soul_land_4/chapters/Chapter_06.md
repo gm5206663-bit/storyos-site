@@ -632,7 +632,7 @@ In Heaven Dou Shopping Mall, Nana put her new wish into words.
 
 "I can be his teacher," she said.
 
-Lan Xiao and Nan Cheng did not know what to do with a stranger so beautiful she seemed unreal, a woman who liked their son with frightening sincerity, who claimed she could teach him, who carried credentials from the Heaven Dou science-and-technology side, and who seemed to have appeared twice by coincidence after coincidence until coincidence became a very thin blanket.
+Lan Xiao and Nan Cheng did not know what to do with a stranger so beautiful she seemed unreal, a woman who liked their son with frightening sincerity. Who claimed she could teach him, who carried credentials from the Heaven Dou science-and-technology side, and who seemed to have appeared twice by coincidence after coincidence until coincidence became a very thin blanket.
 
 Lan Xiao checked her communication device because he loved his son more than politeness. The record said Nana, twenty-five, ancient martial arts teacher, Heaven Dou branch, tier-three job ranking. Simple. Legal. Too simple for comfort, but not false.
 
